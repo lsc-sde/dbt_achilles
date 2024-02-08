@@ -3,7 +3,7 @@
 WITH rawData AS (
   SELECT
     LEFT(l1.zip, 3) AS stratum_1,
-    COUNT_BIG(DISTINCT care_site_id) AS count_value
+    count(DISTINCT care_site_id) AS count_value
   FROM {{ source("omop", "care_site" ) }} AS cs1
   INNER JOIN {{ source("omop", "location" ) }} AS l1
     ON cs1.location_id = l1.location_id

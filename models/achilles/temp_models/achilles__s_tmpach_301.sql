@@ -7,6 +7,6 @@ select
   cast(null as VARCHAR(255)) as stratum_3,
   cast(null as VARCHAR(255)) as stratum_4,
   cast(null as VARCHAR(255)) as stratum_5,
-  COUNT_BIG(distinct provider_id) as count_value
+  count(distinct provider_id) as count_value
 from {{ source("omop", "provider" ) }}
 group by specialty_CONCEPT_ID

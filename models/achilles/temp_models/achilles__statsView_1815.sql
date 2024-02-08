@@ -4,7 +4,7 @@ SELECT
   m.subject_id AS stratum1_id,
   m.unit_concept_id AS stratum2_id,
   m.count_value,
-  COUNT_BIG(*) AS total,
+  count(*) AS total,
   ROW_NUMBER() OVER (
     PARTITION BY m.subject_id, m.unit_concept_id ORDER BY m.count_value
   ) AS rn

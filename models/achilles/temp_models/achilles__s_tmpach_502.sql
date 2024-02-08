@@ -3,7 +3,7 @@
 WITH rawData AS (
   SELECT
     YEAR(d.death_date) * 100 + MONTH(d.death_date) AS stratum_1,
-    COUNT_BIG(DISTINCT d.person_id) AS count_value
+    count(DISTINCT d.person_id) AS count_value
   FROM
     {{ source("omop", "death" ) }} AS d
     JOIN

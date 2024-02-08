@@ -1,7 +1,7 @@
 -- 1803	Number of distinct measurement occurrence concepts per person
 --HINT DISTRIBUTE_ON_KEY(count_value)
 with rawData (count_value) as (
-  select COUNT_BIG(distinct m.measurement_concept_id) as count_value
+  select count(distinct m.measurement_concept_id) as count_value
   from
     {{ source("omop", "measurement" ) }} as m
     join
@@ -18,16 +18,16 @@ with rawData (count_value) as (
 overallStats (avg_value, stdev_value, min_value, max_value, total) as (
   select
     cast(AVG(1.0 * count_value) as FLOAT) as avg_value,
-    cast(STDEV(count_value) as FLOAT) as stdev_value,
+    cast(stddev(count_value) as FLOAT) as stdev_value,
     MIN(count_value) as min_value,
     MAX(count_value) as max_value,
-    COUNT_BIG(*) as total
+    count(*) as total
   from rawData
 ),
 statsView (count_value, total, rn) as (
   select
     count_value,
-    COUNT_BIG(*) as total,
+    count(*) as total,
     row_number() over (order by count_value) as rn
   from rawData
   group by count_value

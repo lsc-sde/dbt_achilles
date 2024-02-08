@@ -4,7 +4,7 @@ WITH rawData AS (
   SELECT
     vo.visit_concept_id AS stratum_1,
     YEAR(vo.visit_start_date) * 100 + MONTH(vo.visit_start_date) AS stratum_2,
-    COUNT_BIG(DISTINCT vo.person_id) AS count_value
+    count(DISTINCT vo.person_id) AS count_value
   FROM
     {{ source("omop", "visit_occurrence" ) }} AS vo
     JOIN

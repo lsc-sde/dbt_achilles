@@ -5,7 +5,7 @@ WITH rawData AS (
     p.gender_concept_id AS stratum_2,
     YEAR(d.death_date) AS stratum_1,
     FLOOR((YEAR(d.death_date) - p.year_of_birth) / 10) AS stratum_3,
-    COUNT_BIG(DISTINCT p.person_id) AS count_value
+    count(DISTINCT p.person_id) AS count_value
   FROM
     {{ source("omop", "person" ) }} AS p
     JOIN

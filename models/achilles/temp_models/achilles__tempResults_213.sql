@@ -11,7 +11,7 @@ with rawData (stratum_id, count_value) as (
   -- only include events that occur during observation period
   where
     vo.visit_start_date >= op.observation_period_start_date
-    and isnull(vo.visit_end_date, vo.visit_start_date) <= op.observation_period_end_date
+    and coalesce(vo.visit_end_date, vo.visit_start_date) <= op.observation_period_end_date
 ),
 overallStats (
   stratum_id, avg_value, stdev_value, min_value, max_value, total
@@ -19,10 +19,10 @@ overallStats (
   select
     stratum_id,
     cast(avg(1.0 * count_value) as FLOAT) as avg_value,
-    cast(stdev(count_value) as FLOAT) as stdev_value,
+    cast(stddev(count_value) as FLOAT) as stdev_value,
     min(count_value) as min_value,
     max(count_value) as max_value,
-    count_big(*) as total
+    count(*) as total
   from rawData
   group by stratum_id
 ),
@@ -30,7 +30,7 @@ statsView (stratum_id, count_value, total, rn) as (
   select
     stratum_id,
     count_value,
-    count_big(*) as total,
+    count(*) as total,
     row_number() over (order by count_value) as rn
   from rawData
   group by stratum_id, count_value

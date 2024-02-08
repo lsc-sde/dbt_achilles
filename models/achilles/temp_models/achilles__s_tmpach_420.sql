@@ -4,7 +4,7 @@ WITH rawData AS (
   SELECT
     YEAR(co.condition_start_date) * 100
     + MONTH(co.condition_start_date) AS stratum_1,
-    COUNT_BIG(co.person_id) AS count_value
+    count(co.person_id) AS count_value
   FROM
     {{ source("omop", "condition_occurrence" ) }} AS co
     JOIN

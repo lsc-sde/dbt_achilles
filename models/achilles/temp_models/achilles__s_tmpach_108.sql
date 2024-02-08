@@ -8,7 +8,7 @@ WITH rawData AS (
       )
       / 30
     ) AS stratum_1,
-    count_big(DISTINCT p1.person_id) AS count_value
+    count(DISTINCT p1.person_id) AS count_value
   FROM {{ source("omop", "person" ) }} AS p1
   INNER JOIN
     (

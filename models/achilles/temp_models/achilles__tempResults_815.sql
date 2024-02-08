@@ -8,7 +8,7 @@ with priorStats (stratum1_id, stratum2_id, count_value, total, accumulated) as (
     sum(p.total) as accumulated
   from {{ ref( "achilles__statsView_815" ) }} as s
   inner join
-    achilles__statsView_815 as p
+    {{ ref('achilles__statsView_815') }} as p
     on
       s.stratum1_id = p.stratum1_id
       and s.stratum2_id = p.stratum2_id
@@ -51,7 +51,7 @@ select
   ) as p90_value
 from priorStats as p
 inner join
-  achilles__overallStats_815 as o
+  {{ ref('achilles__overallStats_815') }} as o
   on p.stratum1_id = o.stratum1_id and p.stratum2_id = o.stratum2_id
 group by
   o.stratum1_id, o.stratum2_id, o.total, o.min_value, o.max_value, o.avg_value, o.stdev_value

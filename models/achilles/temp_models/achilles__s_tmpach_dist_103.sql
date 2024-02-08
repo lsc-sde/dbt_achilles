@@ -9,15 +9,15 @@ select p.person_id,
 overallStats (avg_value, stdev_value, min_value, max_value, total) as
 (
   select CAST(avg(1.0 * age_value) AS FLOAT) as avg_value,
-  CAST(stdev(age_value) AS FLOAT) as stdev_value,
+  CAST(stddev(age_value) AS FLOAT) as stdev_value,
   min(age_value) as min_value,
   max(age_value) as max_value,
-  count_big(*) as total
+  count(*) as total
   FROM rawData
 ),
 ageStats (age_value, total, rn) as
 (
-  select age_value, count_big(*) as total, row_number() over (order by age_value) as rn
+  select age_value, count(*) as total, row_number() over (order by age_value) as rn
   from rawData
   group by age_value
 ),

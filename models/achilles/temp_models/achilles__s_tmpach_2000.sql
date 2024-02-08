@@ -8,7 +8,7 @@ SELECT
   CAST(NULL AS VARCHAR(255)) AS stratum_5,
   CAST(d.cnt AS BIGINT) AS count_value
 FROM (
-  SELECT COUNT_BIG(*) AS cnt
+  SELECT count(*) AS cnt
   FROM (
     SELECT DISTINCT person_id
     FROM (

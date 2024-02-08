@@ -5,7 +5,7 @@ WITH rawData AS (
     p1.gender_concept_id AS stratum_2,
     YEAR(visit_start_date) AS stratum_1,
     FLOOR((YEAR(visit_start_date) - p1.year_of_birth) / 10) AS stratum_3,
-    COUNT_BIG(DISTINCT p1.PERSON_ID) AS count_value
+    count(DISTINCT p1.PERSON_ID) AS count_value
   FROM {{ source("omop", "person" ) }} AS p1
   INNER JOIN
     {{ source("omop", "visit_occurrence" ) }} AS vo1

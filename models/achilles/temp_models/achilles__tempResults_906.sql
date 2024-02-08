@@ -6,10 +6,10 @@ with overallStats (
     subject_id as stratum1_id,
     gender_concept_id as stratum2_id,
     cast(avg(1.0 * count_value) as FLOAT) as avg_value,
-    cast(stdev(count_value) as FLOAT) as stdev_value,
+    cast(stddev(count_value) as FLOAT) as stdev_value,
     min(count_value) as min_value,
     max(count_value) as max_value,
-    count_big(*) as total
+    count(*) as total
   from {{ ref( "achilles__rawData_906" ) }}
   group by subject_id, gender_concept_id
 ),
@@ -18,7 +18,7 @@ statsView (stratum1_id, stratum2_id, count_value, total, rn) as (
     subject_id as stratum1_id,
     gender_concept_id as stratum2_id,
     count_value,
-    count_big(*) as total,
+    count(*) as total,
     row_number() over (
       partition by subject_id, gender_concept_id order by count_value
     ) as rn

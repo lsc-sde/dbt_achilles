@@ -2,10 +2,10 @@
 with overallStats (avg_value, stdev_value, min_value, max_value, total) as (
   select
     cast(avg(1.0 * count_value) as FLOAT) as avg_value,
-    cast(stdev(count_value) as FLOAT) as stdev_value,
+    cast(stddev(count_value) as FLOAT) as stdev_value,
     min(count_value) as min_value,
     max(count_value) as max_value,
-    count_big(*) as total
+    count(*) as total
   from {{ ref( "achilles__tempObs_105" ) }}
 ),
 priorStats (count_value, total, accumulated) as (
@@ -14,7 +14,7 @@ priorStats (count_value, total, accumulated) as (
     s.total,
     sum(p.total) as accumulated
   from {{ ref( "achilles__statsView_105" ) }} as s
-  inner join achilles__statsView_105 as p on p.rn <= s.rn
+  inner join {{ ref('achilles__statsView_105') }} as p on p.rn <= s.rn
   group by s.count_value, s.total, s.rn
 )
 select

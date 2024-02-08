@@ -3,20 +3,6 @@
 		{
 			"name": "dbt_achilles",
 			"path": "."
-		},
-		{
-			"name": "dbt_omop",
-			"path": "../dbt_omop"
-		},
-		{
-			"name": "prd_omop",
-			"path": "../prd_omop"
-		},
-		{
-			"path": "../../iac"
-		},
-		{
-			"path": "../../../azure_lander/jupyterlab_docker_images"
 		}
 	],
 	"settings": {

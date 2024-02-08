@@ -43,7 +43,7 @@ from
       SUM(p.total) as accumulated
     from {{ ref( "achilles__statsView_1815" ) }} as s
     inner join
-      achilles__statsView_1815 as p
+      {{ ref( "achilles__statsView_1815" ) }} as p
       on
         s.stratum1_id = p.stratum1_id
         and s.stratum2_id = p.stratum2_id
@@ -56,10 +56,10 @@ inner join
       m.subject_id as stratum1_id,
       m.unit_concept_id as stratum2_id,
       cast(AVG(1.0 * m.count_value) as FLOAT) as avg_value,
-      cast(STDEV(m.count_value) as FLOAT) as stdev_value,
+      cast(stddev(m.count_value) as FLOAT) as stdev_value,
       MIN(m.count_value) as min_value,
       MAX(m.count_value) as max_value,
-      COUNT_BIG(*) as total
+      count(*) as total
     from
       (
         select

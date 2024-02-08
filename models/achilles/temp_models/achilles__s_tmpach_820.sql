@@ -3,7 +3,7 @@
 WITH rawData AS (
   SELECT
     YEAR(o.observation_date) * 100 + MONTH(o.observation_date) AS stratum_1,
-    COUNT_BIG(o.person_id) AS count_value
+    count(o.person_id) AS count_value
   FROM
     {{ source("omop", "observation" ) }} AS o
     JOIN

@@ -4,7 +4,7 @@ WITH rawData AS (
   SELECT
     p1.gender_concept_id AS stratum_1,
     year(op1.index_date) - p1.YEAR_OF_BIRTH AS stratum_2,
-    count_big(p1.person_id) AS count_value
+    count(p1.person_id) AS count_value
   FROM {{ source("omop", "person" ) }} AS p1
   INNER JOIN
     (SELECT

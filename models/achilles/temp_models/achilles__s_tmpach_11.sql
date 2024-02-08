@@ -7,7 +7,7 @@ select
   cast(null as VARCHAR(255)) as stratum_3,
   cast(null as VARCHAR(255)) as stratum_4,
   cast(null as VARCHAR(255)) as stratum_5,
-  COUNT_BIG(distinct P.person_id) as count_value
+  count(distinct P.person_id) as count_value
 from {{ source("omop", "person" ) }} as P
 where
   not exists

@@ -7,7 +7,7 @@ SELECT
   CAST(NULL AS VARCHAR(255)) AS stratum_3,
   CAST(NULL AS VARCHAR(255)) AS stratum_4,
   CAST(NULL AS VARCHAR(255)) AS stratum_5,
-  COUNT_BIG(DISTINCT d.person_id) AS count_value
+  count(DISTINCT d.person_id) AS count_value
 FROM
   {{ source("omop", "death" ) }} AS d
 INNER JOIN

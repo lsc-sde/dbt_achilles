@@ -16,10 +16,10 @@ overallStats (
   select
     gender_concept_id,
     cast(AVG(1.0 * age_value) as FLOAT) as avg_value,
-    cast(STDEV(age_value) as FLOAT) as stdev_value,
+    cast(stddev(age_value) as FLOAT) as stdev_value,
     MIN(age_value) as min_value,
     MAX(age_value) as max_value,
-    COUNT_BIG(*) as total
+    count(*) as total
   from rawData
   group by gender_concept_id
 ),
@@ -27,7 +27,7 @@ ageStats (gender_concept_id, age_value, total, rn) as (
   select
     gender_concept_id,
     age_value,
-    COUNT_BIG(*) as total,
+    count(*) as total,
     row_number() over (order by age_value) as rn
   from rawData
   group by gender_concept_id, age_value

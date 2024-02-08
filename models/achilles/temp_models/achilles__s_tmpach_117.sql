@@ -10,7 +10,7 @@ SELECT
   117 as analysis_id,
 	CAST(t1.obs_month AS VARCHAR(255)) as stratum_1,
 	cast(null as varchar(255)) as stratum_2, cast(null as varchar(255)) as stratum_3, cast(null as varchar(255)) as stratum_4, cast(null as varchar(255)) as stratum_5,
-	COALESCE(COUNT_BIG(distinct op1.PERSON_ID),0) as count_value
+	COALESCE(count(distinct op1.PERSON_ID),0) as count_value
 FROM date_keys t1
 left join
   (select t2.obs_month, op2.*
@@ -19,4 +19,4 @@ left join
     and year(op2.observation_period_end_date)*100 + month(op2.observation_period_end_date) >= t2.obs_month
   ) op1 on op1.obs_month = t1.obs_month
 group by t1.obs_month
-having COALESCE(COUNT_BIG(distinct op1.PERSON_ID),0) > 0
+having COALESCE(count(distinct op1.PERSON_ID),0) > 0

@@ -8,7 +8,7 @@ SELECT
   CAST(null AS VARCHAR(255)) AS stratum_3,
   CAST(null AS VARCHAR(255)) AS stratum_4,
   CAST(null AS VARCHAR(255)) AS stratum_5,
-  COUNT_BIG(DISTINCT op1.PERSON_ID) AS count_value
+  count(DISTINCT op1.PERSON_ID) AS count_value
 FROM
   {{ source("omop", "observation_period" ) }} AS op1
 INNER JOIN
@@ -16,13 +16,13 @@ INNER JOIN
     SELECT DISTINCT
       YEAR(observation_period_start_date) * 100
       + MONTH(observation_period_start_date) AS obs_month,
-      DATEFROMPARTS(
+      make_date(
         YEAR(observation_period_start_date),
         MONTH(observation_period_start_date),
         1
       )
         AS obs_month_start,
-      EOMONTH(observation_period_start_date) AS obs_month_end
+      last_day(observation_period_start_date) AS obs_month_end
     FROM {{ source("omop", "observation_period" ) }}
   ) AS t1
   ON

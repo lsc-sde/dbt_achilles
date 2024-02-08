@@ -2,13 +2,6 @@
 {{
   config(
     materialized = 'table',
-    post_hook = [
-      "create index idx_ar_aid on {{ this }} (analysis_id)",
-      "create index idx_ar_s1 on {{ this }} (stratum_1)",
-      "create index idx_ar_s2 on {{ this }} (stratum_2)",
-      "create index idx_ar_aid_s1 on {{ this }} (analysis_id,stratum_1)",
-      "create index idx_ar_aid_s1234 on {{ this }} (analysis_id,stratum_1,stratum_2,stratum_3,stratum_4)",
-    ]
     )
 }}
 

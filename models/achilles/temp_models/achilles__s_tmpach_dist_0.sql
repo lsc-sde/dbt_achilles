@@ -15,5 +15,5 @@ select
   cast(null as FLOAT) as p25_value,
   cast(null as FLOAT) as p75_value,
   cast(null as FLOAT) as p90_value,
-  COUNT_BIG(distinct person_id) as count_value
+  count(distinct person_id) as count_value
 from {{ source("omop", "person" ) }}

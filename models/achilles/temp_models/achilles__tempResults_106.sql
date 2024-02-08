@@ -5,10 +5,10 @@ with overallStats (
   select
     gender_concept_id,
     cast(avg(1.0 * count_value) as FLOAT) as avg_value,
-    cast(stdev(count_value) as FLOAT) as stdev_value,
+    cast(stddev(count_value) as FLOAT) as stdev_value,
     min(count_value) as min_value,
     max(count_value) as max_value,
-    count_big(*) as total
+    count(*) as total
   from {{ ref( "achilles__rawData_106" ) }}
   group by gender_concept_id
 ),
@@ -16,7 +16,7 @@ statsView (gender_concept_id, count_value, total, rn) as (
   select
     gender_concept_id,
     count_value,
-    count_big(*) as total,
+    count(*) as total,
     row_number() over (order by count_value) as rn
   from {{ ref( "achilles__rawData_106" ) }}
   group by gender_concept_id, count_value

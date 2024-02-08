@@ -7,7 +7,7 @@ select
   cast(null as VARCHAR(255)) as stratum_3,
   cast(null as VARCHAR(255)) as stratum_4,
   cast(null as VARCHAR(255)) as stratum_5,
-  COUNT_BIG(*) as count_value
+  count(*) as count_value
 from
   {{ source("omop", "observation_period" ) }} as op1
 group by op1.period_type_concept_id

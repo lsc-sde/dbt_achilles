@@ -4,7 +4,7 @@ WITH rawData AS (
   SELECT
     po.procedure_concept_id AS stratum_1,
     YEAR(po.procedure_date) * 100 + MONTH(po.procedure_date) AS stratum_2,
-    COUNT_BIG(DISTINCT po.person_id) AS count_value
+    count(DISTINCT po.person_id) AS count_value
   FROM
     {{ source("omop", "procedure_occurrence" ) }} AS po
     JOIN

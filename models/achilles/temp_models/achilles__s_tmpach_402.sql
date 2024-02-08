@@ -5,7 +5,7 @@ WITH rawData AS (
     co.condition_concept_id AS stratum_1,
     YEAR(co.condition_start_date) * 100
     + MONTH(co.condition_start_date) AS stratum_2,
-    COUNT_BIG(DISTINCT co.person_id) AS count_value
+    count(DISTINCT co.person_id) AS count_value
   FROM
     {{ source("omop", "condition_occurrence" ) }} AS co
     JOIN

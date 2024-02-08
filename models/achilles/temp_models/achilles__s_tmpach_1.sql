@@ -6,5 +6,5 @@ select
   cast(null as varchar(255)) as stratum_3,
   cast(null as varchar(255)) as stratum_4,
   cast(null as varchar(255)) as stratum_5,
-  COUNT_BIG(distinct person_id) as count_value
+  count(distinct person_id) as count_value
 from {{ source("omop", "person" ) }}

@@ -4,9 +4,9 @@
 SELECT DISTINCT
   YEAR(payer_plan_period_start_date) * 100
   + MONTH(payer_plan_period_start_date) AS obs_month,
-  DATEFROMPARTS(
+  make_date(
     YEAR(payer_plan_period_start_date), MONTH(payer_plan_period_start_date), 1
   ) AS obs_month_start,
-  EOMONTH(payer_plan_period_start_date) AS obs_month_end
+  last_day(payer_plan_period_start_date) AS obs_month_end
 FROM
   {{ source("omop", "payer_plan_period" ) }}

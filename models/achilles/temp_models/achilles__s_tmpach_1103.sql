@@ -7,7 +7,7 @@ select
   cast(null as VARCHAR(255)) as stratum_3,
   cast(null as VARCHAR(255)) as stratum_4,
   cast(null as VARCHAR(255)) as stratum_5,
-  COUNT_BIG(distinct care_site_id) as count_value
+  count(distinct care_site_id) as count_value
 from {{ source("omop", "care_site" ) }} as cs1
 inner join {{ source("omop", "location" ) }} as l1
   on cs1.location_id = l1.location_id

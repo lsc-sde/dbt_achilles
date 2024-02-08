@@ -7,11 +7,11 @@ SELECT
   CAST(NULL AS VARCHAR(255)) AS stratum_3,
   CAST(NULL AS VARCHAR(255)) AS stratum_4,
   CAST(NULL AS VARCHAR(255)) AS stratum_5,
-  COUNT_BIG(count_value) AS count_value,
+  count(count_value) AS count_value,
   MIN(count_value) AS min_value,
   MAX(count_value) AS max_value,
   CAST(AVG(1.0 * count_value) AS FLOAT) AS avg_value,
-  CAST(STDEV(count_value) AS FLOAT) AS stdev_value,
+  CAST(stddev(count_value) AS FLOAT) AS stdev_value,
   MAX(CASE WHEN p1 <= 0.50 THEN count_value ELSE -9999 END) AS median_value,
   MAX(CASE WHEN p1 <= 0.10 THEN count_value ELSE -9999 END) AS p10_value,
   MAX(CASE WHEN p1 <= 0.25 THEN count_value ELSE -9999 END) AS p25_value,
@@ -22,7 +22,7 @@ FROM (
     DATEDIFF(DD, d.death_date, co.max_date) AS count_value,
     1.0
     * (ROW_NUMBER() OVER (ORDER BY DATEDIFF(DD, d.death_date, co.max_date)))
-    / (COUNT_BIG(*) OVER () + 1) AS p1
+    / (count(*) OVER () + 1) AS p1
   FROM
     {{ source("omop", "death" ) }} AS d
     JOIN (

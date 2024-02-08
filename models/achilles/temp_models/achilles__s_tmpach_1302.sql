@@ -5,7 +5,7 @@ WITH rawData AS (
     vd.visit_detail_concept_id AS stratum_1,
     YEAR(vd.visit_detail_start_date) * 100
     + MONTH(vd.visit_detail_start_date) AS stratum_2,
-    COUNT_BIG(DISTINCT vd.person_id) AS count_value
+    count(DISTINCT vd.person_id) AS count_value
   FROM
     {{ source("omop", "visit_detail" ) }} AS vd
     JOIN

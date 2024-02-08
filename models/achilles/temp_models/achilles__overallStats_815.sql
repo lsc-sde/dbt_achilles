@@ -3,10 +3,10 @@ SELECT
   o.subject_id AS stratum1_id,
   o.unit_concept_id AS stratum2_id,
   CAST(AVG(1.0 * o.count_value) AS FLOAT) AS avg_value,
-  CAST(STDEV(count_value) AS FLOAT) AS stdev_value,
+  CAST(stddev(count_value) AS FLOAT) AS stdev_value,
   MIN(o.count_value) AS min_value,
   MAX(o.count_value) AS max_value,
-  COUNT_BIG(*) AS total
+  count(*) AS total
 FROM (
   SELECT
     o.observation_concept_id AS subject_id,

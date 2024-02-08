@@ -32,10 +32,10 @@ overallStats (
   SELECT
     stratum_id,
     CAST(AVG(1.0 * count_value) AS FLOAT) AS avg_value,
-    CAST(STDEV(count_value) AS FLOAT) AS stdev_value,
+    CAST(stddev(count_value) AS FLOAT) AS stdev_value,
     MIN(count_value) AS min_value,
     MAX(count_value) AS max_value,
-    COUNT_BIG(*) AS total
+    count(*) AS total
   FROM rawData
   GROUP BY stratum_id
 ),
@@ -43,7 +43,7 @@ statsView (stratum_id, count_value, total, rn) AS (
   SELECT
     stratum_id,
     count_value,
-    COUNT_BIG(*) AS total,
+    count(*) AS total,
     ROW_NUMBER() OVER (ORDER BY count_value) AS rn
   FROM rawData
   GROUP BY stratum_id, count_value

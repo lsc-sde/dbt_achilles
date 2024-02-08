@@ -5,7 +5,7 @@ WITH rawData AS (
     de.device_concept_id AS stratum_1,
     YEAR(de.device_exposure_start_date) * 100
     + MONTH(de.device_exposure_start_date) AS stratum_2,
-    COUNT_BIG(DISTINCT de.person_id) AS count_value
+    count(DISTINCT de.person_id) AS count_value
   FROM
     {{ source("omop", "device_exposure" ) }} AS de
     JOIN

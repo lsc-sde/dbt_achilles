@@ -6,7 +6,7 @@ select
   cast(null as VARCHAR(255)) as stratum_3,
   cast(null as VARCHAR(255)) as stratum_4,
   cast(null as VARCHAR(255)) as stratum_5,
-  COUNT_BIG(distinct p1.PERSON_ID) as count_value
+  count(distinct p1.PERSON_ID) as count_value
 from
   {{ source("omop", "person" ) }} as p1
 inner join

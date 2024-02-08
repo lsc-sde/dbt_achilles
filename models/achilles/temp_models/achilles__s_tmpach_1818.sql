@@ -6,9 +6,9 @@ SELECT
   CAST(stratum_3 AS VARCHAR(255)) AS stratum_3,
   CAST(NULL AS VARCHAR(255)) AS stratum_4,
   CAST(NULL AS VARCHAR(255)) AS stratum_5,
-  COUNT_BIG(person_id) AS count_value
+  count(person_id) AS count_value
 FROM
-	achilles__rawData_1818
+	 {{ ref('achilles__rawData_1818') }}
 GROUP BY
 	measurement_concept_id,
 	unit_concept_id,

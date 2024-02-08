@@ -96,8 +96,8 @@ ymd as (
 year_ranges as (
   select
     obs_year,
-    datefromparts(obs_year, month_start, day_start) as obs_year_start,
-    datefromparts(obs_year, month_end, day_end) as obs_year_end
+    make_date(obs_year, month_start, day_start) as obs_year_start,
+    make_date(obs_year, month_end, day_end) as obs_year_end
   from ymd
   where
     obs_year
@@ -118,7 +118,7 @@ select
   cast(NULL as varchar(255)) as stratum_3,
   cast(NULL as varchar(255)) as stratum_4,
   cast(NULL as varchar(255)) as stratum_5,
-  count_big(distinct op.person_id) as count_value
+  count(distinct op.person_id) as count_value
 from
   {{ source("omop", "observation_period" ) }} as op
 cross join
