@@ -1,0 +1,81 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: person
+      columns:
+        - name: person_id
+          tests:
+            - unique
+            - not_null
+        - name: gender_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__person_gender_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: year_of_birth
+          tests:
+            - not_null
+        - name: month_of_birth
+        - name: day_of_birth
+        - name: birth_datetime
+          tests:
+            - not_null
+        - name: race_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__person_race_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: ethnicity_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__person_ethnicity_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: location_id
+          tests:
+            - relationships:
+                name: fk__person_location_id
+                to: source('omop', 'location')
+                field: location_id
+        - name: provider_id
+          tests:
+            - relationships:
+                name: fk__person_provider_id
+                to: source('omop', 'provider')
+                field: provider_id
+        - name: care_site_id
+          tests:
+            - relationships:
+                name: fk__person_care_site_id
+                to: source('omop', 'care_site')
+                field: care_site_id
+        - name: person_source_value
+        - name: gender_source_value
+        - name: gender_source_concept_id
+          tests:
+            - relationships:
+                name: fk__person_gender_source_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: race_source_value
+        - name: race_source_concept_id
+          tests:
+            - relationships:
+                name: fk__person_race_source_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: ethnicity_source_value
+        - name: ethnicity_source_concept_id
+          tests:
+            - relationships:
+                name: fk__person_ethnicity_source_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id

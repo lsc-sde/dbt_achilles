@@ -1,0 +1,115 @@
+version: 2
+sources:
+  - name: omop
+    catalog: hive_metastore
+    schema: omop_source
+    tables:
+      - name: observation
+        columns:
+          - name: observation_id
+            tests:
+              - unique
+              - not_null
+          - name: person_id
+            tests:
+              - not_null
+              - relationships:
+                  name: fk__observation_person_id
+                  to: source('omop', 'person')
+                  field: person_id
+          - name: observation_concept_id
+            tests:
+              - not_null
+              - relationships:
+                  name: fk__observation_observation_concept_id
+                  to: source('vocab', 'concept')
+                  field: concept_id
+          - name: observation_date
+            tests:
+              - not_null
+              - linked_model_date_comparison:
+                  name: comp__observation_date_ge_birth_datetime
+                  other_model: source('omop', 'person')
+                  other_column: birth_datetime
+                  fk: person_id
+                  operator: 'ge'
+          - name: observation_datetime
+            tests:
+              - linked_model_date_comparison:
+                  name: comp__observation_datetime_ge_birth_datetime
+                  other_model: source('omop', 'person')
+                  other_column: birth_datetime
+                  fk: person_id
+                  operator: 'ge'
+          - name: observation_type_concept_id
+            tests:
+              - not_null
+              - relationships:
+                  name: fk__observation_observation_type_concept_id
+                  to: source('vocab', 'concept')
+                  field: concept_id
+          - name: value_as_number
+          - name: value_as_string
+          - name: value_as_concept_id
+            tests:
+              - relationships:
+                  name: fk__observation_value_as_concept_id
+                  to: source('vocab', 'concept')
+                  field: concept_id
+          - name: qualifier_concept_id
+            tests:
+              - relationships:
+                  name: fk__observation_qualifier_concept_id
+                  to: source('vocab', 'concept')
+                  field: concept_id
+          - name: unit_concept_id
+            tests:
+              - relationships:
+                  name: fk__observation_unit_concept_id
+                  to: source('vocab', 'concept')
+                  field: concept_id
+          - name: provider_id
+            tests:
+              - relationships:
+                  name: fk__observation_provider_id
+                  to: source('omop', 'provider')
+                  field: provider_id
+          - name: visit_occurrence_id
+            tests:
+              - relationships:
+                  name: fk__observation_visit_occurrence_id
+                  to: source('omop', 'visit_occurrence')
+                  field: visit_occurrence_id
+          - name: visit_detail_id
+            tests:
+              - relationships:
+                  name: fk__observation_visit_detail_id
+                  to: source('omop', 'visit_detail')
+                  field: visit_detail_id
+          - name: observation_source_value
+          - name: observation_source_concept_id
+            tests:
+              - relationships:
+                  name: fk__observation_observation_source_concept_id
+                  to: source('vocab', 'concept')
+                  field: concept_id
+          - name: unit_source_value
+          - name: qualifier_source_value
+          - name: value_source_value
+          - name: observation_event_id
+          - name: obs_event_field_concept_id
+            tests:
+              - relationships:
+                  name: fk__observation_obs_event_field_concept_id
+                  to: source('vocab', 'concept')
+                  field: concept_id
+          - name: unique_key
+            tests:
+              - unique
+              - not_null
+          - name: datasource
+            tests:
+              - not_null
+          - name: updated_at
+            tests:
+              - not_null

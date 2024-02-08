@@ -1,0 +1,46 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: drug_era
+      columns:
+        - name: drug_era_id
+          tests:
+            - unique
+            - not_null
+        - name: person_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__drug_era_person_id
+                to: source('omop', 'person')
+                field: person_id
+        - name: drug_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__drug_era_drug_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: drug_era_start_date
+          tests:
+            - not_null
+            - linked_model_date_comparison:
+                name: comp__drug_era_start_date_ge_birth_datetime
+                other_model: source('omop', 'person')
+                other_column: birth_datetime
+                fk: person_id
+                operator: 'ge'
+            - linked_model_date_comparison:
+                name: comp__drug_era_start_date_le_death_date
+                other_model: source('omop', 'death')
+                other_column: death_date
+                fk: person_id
+                operator: 'le'
+        - name: drug_era_end_date
+          tests:
+            - not_null
+        - name: drug_exposure_count
+        - name: gap_days

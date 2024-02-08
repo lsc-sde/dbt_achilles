@@ -1,0 +1,25 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: episode_event
+      columns:
+        - name: episode_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__episode_event_episode_id
+                to: source('omop', 'episode')
+                field: episode_id
+        - name: event_id
+          tests:
+            - not_null
+        - name: episode_event_field_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__episode_event_episode_event_field_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id

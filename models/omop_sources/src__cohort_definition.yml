@@ -1,0 +1,31 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: cohort_definition
+      columns:
+        - name: cohort_definition_id
+          tests:
+            - not_null
+        - name: cohort_definition_name
+          tests:
+            - not_null
+        - name: cohort_definition_description
+        - name: definition_type_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__cohort_definition_definition_type_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: cohort_definition_syntax
+        - name: subject_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__cohort_definition_subject_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: cohort_initiation_date

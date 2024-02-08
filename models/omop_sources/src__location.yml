@@ -1,0 +1,28 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: location
+      columns:
+        - name: location_id
+          tests:
+            - unique
+            - not_null
+        - name: address_1
+        - name: address_2
+        - name: city
+        - name: state
+        - name: zip
+        - name: county
+        - name: location_source_value
+        - name: country_concept_id
+          tests:
+            - relationships:
+                name: fk__location_country_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: country_source_value
+        - name: latitude
+        - name: longitude

@@ -1,0 +1,192 @@
+version: 2
+sources:
+- name: vocab
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: concept
+      columns:
+        - name: concept_id
+          tests:
+            - unique
+            - not_null
+        - name: concept_name
+          tests:
+            - not_null
+        - name: domain_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_domain_id
+                to: source('vocab', 'domain')
+                field: domain_id
+        - name: vocabulary_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_vocabulary_id
+                to: source('vocab', 'vocabulary')
+                field: vocabulary_id
+        - name: concept_class_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_concept_class_id
+                to: source('vocab', 'concept_class')
+                field: concept_class_id
+        - name: standard_concept
+        - name: concept_code
+          tests:
+            - not_null
+        - name: valid_start_date
+          tests:
+            - not_null
+        - name: valid_end_date
+          tests:
+            - not_null
+        - name: invalid_reason
+    - name: concept_ancestor
+      columns:
+        - name: ancestor_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_ancestor_ancestor_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: descendant_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_ancestor_descendant_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: min_levels_of_separation
+          tests:
+            - not_null
+        - name: max_levels_of_separation
+          tests:
+            - not_null
+    - name: concept_class
+      columns:
+        - name: concept_class_id
+          tests:
+            - unique
+            - not_null
+        - name: concept_class_name
+          tests:
+            - not_null
+        - name: concept_class_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_class_concept_class_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+    - name: concept_relationship
+      columns:
+        - name: concept_id_1
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_relationship_concept_id_1
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: concept_id_2
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_relationship_concept_id_2
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: relationship_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_relationship_relationship_id
+                to: source('vocab', 'relationship')
+                field: relationship_id
+        - name: valid_start_date
+          tests:
+            - not_null
+        - name: valid_end_date
+          tests:
+            - not_null
+        - name: invalid_reason
+    - name: concept_synonym
+      columns:
+        - name: concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_synonym_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: concept_synonym_name
+          tests:
+            - not_null
+        - name: language_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__concept_synonym_language_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+    - name: domain
+      columns:
+        - name: domain_id
+          tests:
+            - not_null
+        - name: domain_name
+          tests:
+            - not_null
+        - name: domain_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__domain_domain_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+    - name: relationship
+      columns:
+        - name: relationship_id
+          tests:
+            - not_null
+            - unique
+        - name: relationship_name
+          tests:
+            - not_null
+        - name: is_hierarchical
+          tests:
+            - not_null
+        - name: defines_ancestry
+          tests:
+            - not_null
+        - name: reverse_relationship_id
+          tests:
+            - not_null
+        - name: relationship_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__relationship_relationship_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+    - name: vocabulary
+      columns:
+        - name: vocabulary_id
+          tests:
+            - not_null
+            - unique
+        - name: vocabulary_name
+          tests:
+            - not_null
+        - name: vocabulary_reference
+        - name: vocabulary_version
+        - name: vocabulary_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__vocabulary_vocabulary_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id

@@ -1,0 +1,49 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: provider
+      columns:
+        - name: provider_id
+          tests:
+            - unique
+            - not_null
+        - name: provider_name
+        - name: npi
+        - name: dea
+        - name: specialty_concept_id
+          tests:
+            - relationships:
+                name: fk__provider_specialty_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: care_site_id
+          tests:
+            - relationships:
+                name: fk__provider_care_site_id
+                to: source('omop', 'care_site')
+                field: care_site_id
+        - name: year_of_birth
+        - name: gender_concept_id
+          tests:
+            - relationships:
+                name: fk__provider_gender_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: provider_source_value
+        - name: specialty_source_value
+        - name: specialty_source_concept_id
+          tests:
+            - relationships:
+                name: fk__provider_specialty_source_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: gender_source_value
+        - name: gender_source_concept_id
+          tests:
+            - relationships:
+                name: fk__provider_gender_source_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id

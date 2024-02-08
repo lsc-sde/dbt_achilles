@@ -1,0 +1,63 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: cost
+      columns:
+        - name: cost_id
+          tests:
+            - unique
+            - not_null
+        - name: cost_event_id
+          tests:
+            - not_null
+        - name: cost_domain_id
+          tests:
+            - not_null
+        - name: cost_type_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__cost_cost_type_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: currency_concept_id
+          tests:
+            - relationships:
+                name: fk__cost_currency_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: total_charge
+        - name: total_cost
+        - name: total_paid
+        - name: paid_by_payer
+        - name: paid_by_patient
+        - name: paid_patient_copay
+        - name: paid_patient_coinsurance
+        - name: paid_patient_deductible
+        - name: paid_by_primary
+        - name: paid_ingredient_cost
+        - name: paid_dispensing_fee
+        - name: payer_plan_period_id
+          tests:
+            - relationships:
+                name: fk__cost_payer_plan_period_id
+                to: source('omop', 'payer_plan_period')
+                field: payer_plan_period_id
+        - name: amount_allowed
+        - name: revenue_code_concept_id
+          tests:
+            - relationships:
+                name: fk__cost_revenue_code_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: revenue_code_source_value
+        - name: drg_concept_id
+          tests:
+            - relationships:
+                name: fk__cost_drg_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: drg_source_value

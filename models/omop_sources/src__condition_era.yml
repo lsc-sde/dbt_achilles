@@ -1,0 +1,36 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: condition_era
+      columns:
+        - name: condition_era_id
+          tests:
+            - unique
+            - not_null
+        - name: person_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__condition_era_person_id
+                to: source('omop', 'person')
+                field: person_id
+        - name: condition_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__cohort_definition_condition_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: condition_era_start_date
+          tests:
+            - not_null
+            - dbt_utils.expression_is_true:
+                name: le_now__condition_era_start_date
+                expression: "<= CURRENT_TIMESTAMP()"
+        - name: condition_era_end_date
+          tests:
+            - not_null
+        - name: condition_occurrence_count

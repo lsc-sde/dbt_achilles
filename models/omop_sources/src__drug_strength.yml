@@ -1,0 +1,51 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: drug_strength
+      columns:
+        - name: drug_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__drug_strength_drug_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: ingredient_concept_id
+          tests:
+            - not_null
+            - relationships:
+                name: fk__drug_strength_ingredient_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: amount_value
+        - name: amount_unit_concept_id
+          tests:
+            - relationships:
+                name: fk__drug_strength_amount_unit_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: numerator_value
+        - name: numerator_unit_concept_id
+          tests:
+            - relationships:
+                name: fk__drug_strength_numerator_unit_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: denominator_value
+        - name: denominator_unit_concept_id
+          tests:
+            - relationships:
+                name: fk__drug_strength_denominator_unit_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: box_size
+        - name: valid_start_date
+          tests:
+            - not_null
+        - name: valid_end_date
+          tests:
+            - not_null
+        - name: invalid_reason

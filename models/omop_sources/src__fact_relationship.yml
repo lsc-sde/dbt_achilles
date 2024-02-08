@@ -1,0 +1,35 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: fact_relationship
+      columns:
+        - name: domain_concept_id_1
+          tests:
+            - not_null
+            - relationships:
+                  name: fk__fact_relationship_domain_concept_id_1
+                  to: source('vocab', 'concept')
+                  field: concept_id
+        - name: fact_id_1
+          tests:
+            - not_null
+        - name: domain_concept_id_2
+          tests:
+            - not_null
+            - relationships:
+                  name: fk__fact_relationship_domain_concept_id_2
+                  to: source('vocab', 'concept')
+                  field: concept_id
+        - name: fact_id_2
+          tests:
+            - not_null
+        - name: relationship_concept_id
+          tests:
+            - not_null
+            - relationships:
+                  name: fk__fact_relationship_relationship_concept_id
+                  to: source('vocab', 'concept')
+                  field: concept_id

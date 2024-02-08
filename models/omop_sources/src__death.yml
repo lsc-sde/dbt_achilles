@@ -1,0 +1,58 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: death
+      columns:
+        - name: person_id
+          tests:
+            - unique
+            - not_null
+            - relationships:
+                name: fk__death_person_id
+                to: source('omop', 'person')
+                field: person_id
+        - name: death_date
+          tests:
+            - not_null
+            - dbt_utils.expression_is_true:
+                name: le_now__death_death_date
+                expression: "<= CURRENT_TIMESTAMP()"
+            - linked_model_date_comparison:
+                name: comp__death_date_ge_birth_datetime
+                other_model: source('omop', 'person')
+                other_column: birth_datetime
+                fk: person_id
+                operator: 'ge'
+        - name: death_datetime
+          tests:
+            - dbt_utils.expression_is_true:
+                name: le_now__death_death_datetime
+                expression: "<= CURRENT_TIMESTAMP()"
+            - linked_model_date_comparison:
+                name: comp__death_datetime_ge_birth_datetime
+                other_model: source('omop', 'person')
+                other_column: birth_datetime
+                fk: person_id
+                operator: 'ge'
+        - name: death_type_concept_id
+          tests:
+            - relationships:
+                name: fk__death_death_type_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: cause_concept_id
+          tests:
+            - relationships:
+                name: fk__death_cause_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id
+        - name: cause_source_value
+        - name: cause_source_concept_id
+          tests:
+            - relationships:
+                name: fk__death_cause_source_concept_id
+                to: source('vocab', 'concept')
+                field: concept_id

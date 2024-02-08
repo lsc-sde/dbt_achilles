@@ -1,0 +1,20 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: omop_source
+  tables:
+    - name: cohort
+      columns:
+        - name: cohort_definition_id
+          tests:
+            - not_null
+        - name: subject_id
+          tests:
+            - not_null
+        - name: cohort_start_date
+          tests:
+            - not_null
+        - name: cohort_end_date
+          tests:
+            - not_null
