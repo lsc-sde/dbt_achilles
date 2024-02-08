@@ -1,0 +1,42 @@
+version: 2
+sources:
+- name: omop
+  catalog: hive_metastore
+  schema: dev_vc
+  tables:
+    - name: care_site
+    - name: cohort
+    - name: cohort_definition
+    - name: concept
+    - name: concept_ancestor
+    - name: concept_class
+    - name: concept_relationship
+    - name: concept_synonym
+    - name: condition_era
+    - name: condition_occurrence
+    - name: cost
+    - name: death
+    - name: device_exposure
+    - name: domain
+    - name: dose_era
+    - name: drug_era
+    - name: drug_exposure
+    - name: drug_strength
+    - name: episode_event
+    - name: fact_relationship
+    - name: location
+    - name: measurement
+    - name: metadata
+    - name: note
+    - name: note_nlp
+    - name: observation
+    - name: observation_period
+    - name: payer_plan_period
+    - name: person
+    - name: procedure_occurrence
+    - name: provider
+    - name: relationship
+    - name: specimen
+    - name: visit_detail
+    - name: visit_occurrence
+    - name: vocabulary
