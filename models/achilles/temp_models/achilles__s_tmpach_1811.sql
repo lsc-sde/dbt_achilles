@@ -1,23 +1,23 @@
 -- 1811	Number of measurement records with a value (with a mapped, non-null value_as_number)
-SELECT
-  1811 AS analysis_id,
-  CAST(NULL AS VARCHAR(255)) AS stratum_1,
-  CAST(NULL AS VARCHAR(255)) AS stratum_2,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5,
-  count(m.person_id) AS count_value
-FROM
-  {{ source("omop", "measurement" ) }} AS m
-INNER JOIN
-  {{ source("omop", "observation_period" ) }} AS op
-  ON
+select
+  1811 as analysis_id,
+  CAST(NULL as VARCHAR(255)) as stratum_1,
+  CAST(NULL as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5,
+  COUNT(m.person_id) as count_value
+from
+  {{ source("omop", "measurement" ) }} as m
+inner join
+  {{ source("omop", "observation_period" ) }} as op
+  on
     m.person_id = op.person_id
-    AND
+    and
     m.measurement_date >= op.observation_period_start_date
-    AND
+    and
     m.measurement_date <= op.observation_period_end_date
-WHERE
-  m.value_as_number IS NOT NULL
-  OR
+where
+  m.value_as_number is not NULL
+  or
   m.value_as_concept_id != 0

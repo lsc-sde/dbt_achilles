@@ -1,29 +1,29 @@
 -- 406	Distribution of age by condition_concept_id
 --HINT DISTRIBUTE_ON_KEY(subject_id)
-SELECT
-  c.condition_concept_id AS subject_id,
+select
+  c.condition_concept_id as subject_id,
   p.gender_concept_id,
-  (c.condition_start_year - p.year_of_birth) AS count_value
-FROM
-  {{ source("omop", "person" ) }} AS p
-INNER JOIN (
-  SELECT
+  (c.condition_start_year - p.year_of_birth) as count_value
+from
+  {{ source("omop", "person" ) }} as p
+inner join (
+  select
     co.person_id,
     co.condition_concept_id,
-    MIN(YEAR(co.condition_start_date)) AS condition_start_year
-  FROM
-    {{ source("omop", "condition_occurrence" ) }} AS co
-  INNER JOIN
-    {{ source("omop", "observation_period" ) }} AS op
-    ON
+    MIN(YEAR(co.condition_start_date)) as condition_start_year
+  from
+    {{ source("omop", "condition_occurrence" ) }} as co
+  inner join
+    {{ source("omop", "observation_period" ) }} as op
+    on
       co.person_id = op.person_id
-      AND
+      and
       co.condition_start_date >= op.observation_period_start_date
-      AND
+      and
       co.condition_start_date <= op.observation_period_end_date
-  GROUP BY
+  group by
     co.person_id,
     co.condition_concept_id
-) AS c
-  ON
+) as c
+  on
     p.person_id = c.person_id

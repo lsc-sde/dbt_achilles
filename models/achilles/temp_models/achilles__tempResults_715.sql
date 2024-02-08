@@ -1,88 +1,92 @@
 -- 715	Distribution of days_supply by drug_concept_id
 --HINT DISTRIBUTE_ON_KEY(stratum_id)
-WITH rawData (stratum_id, count_value) AS (
-  SELECT
-    de.drug_concept_id AS stratum_id,
-    de.days_supply AS count_value
-  FROM
-    {{ source("omop", "drug_exposure" ) }} AS de
-    JOIN
-    {{ source("omop", "observation_period" ) }} AS op
-    ON
+with rawData (stratum_id, count_value) as (
+  select
+    de.drug_concept_id as stratum_id,
+    de.days_supply as count_value
+  from
+    {{ source("omop", "drug_exposure" ) }} as de
+  inner join
+    {{ source("omop", "observation_period" ) }} as op
+    on
       de.person_id = op.person_id
-      AND
+      and
       de.drug_exposure_start_date >= op.observation_period_start_date
-      AND
+      and
       de.drug_exposure_start_date <= op.observation_period_end_date
-  WHERE
-    de.days_supply IS NOT NULL
+  where
+    de.days_supply is not NULL
 ),
+
 overallStats (
   stratum_id, avg_value, stdev_value, min_value, max_value, total
-) AS (
-  SELECT
+) as (
+  select
     stratum_id,
-    CAST(avg(1.0 * count_value) AS FLOAT) AS avg_value,
-    CAST(stddev(count_value) AS FLOAT) AS stdev_value,
-    min(count_value) AS min_value,
-    max(count_value) AS max_value,
-    count(*) AS total
-  FROM rawData
-  GROUP BY stratum_id
+    CAST(AVG(1.0 * count_value) as FLOAT) as avg_value,
+    CAST(STDDEV(count_value) as FLOAT) as stdev_value,
+    MIN(count_value) as min_value,
+    MAX(count_value) as max_value,
+    COUNT(*) as total
+  from rawData
+  group by stratum_id
 ),
-statsView (stratum_id, count_value, total, rn) AS (
-  SELECT
+
+statsView (stratum_id, count_value, total, rn) as (
+  select
     stratum_id,
     count_value,
-    count(*) AS total,
-    ROW_NUMBER() OVER (PARTITION BY stratum_id ORDER BY count_value) AS rn
-  FROM rawData
-  GROUP BY stratum_id, count_value
+    COUNT(*) as total,
+    ROW_NUMBER() over (partition by stratum_id order by count_value) as rn
+  from rawData
+  group by stratum_id, count_value
 ),
-priorStats (stratum_id, count_value, total, accumulated) AS (
-  SELECT
+
+priorStats (stratum_id, count_value, total, accumulated) as (
+  select
     s.stratum_id,
     s.count_value,
     s.total,
-    sum(p.total) AS accumulated
-  FROM statsView AS s
-  INNER JOIN statsView AS p ON s.stratum_id = p.stratum_id AND p.rn <= s.rn
-  GROUP BY s.stratum_id, s.count_value, s.total, s.rn
+    SUM(p.total) as accumulated
+  from statsView as s
+  inner join statsView as p on s.stratum_id = p.stratum_id and s.rn >= p.rn
+  group by s.stratum_id, s.count_value, s.total, s.rn
 )
-SELECT
-  715 AS analysis_id,
-  o.total AS count_value,
+
+select
+  715 as analysis_id,
+  o.total as count_value,
   o.min_value,
   o.max_value,
   o.avg_value,
   o.stdev_value,
-  CAST(o.stratum_id AS VARCHAR(255)) AS stratum_id,
-  min(
-    CASE
-      WHEN p.accumulated >= .50 * o.total THEN count_value ELSE o.max_value
-    END
-  ) AS median_value,
-  min(
-    CASE
-      WHEN p.accumulated >= .10 * o.total THEN count_value ELSE o.max_value
-    END
-  ) AS p10_value,
-  min(
-    CASE
-      WHEN p.accumulated >= .25 * o.total THEN count_value ELSE o.max_value
-    END
-  ) AS p25_value,
-  min(
-    CASE
-      WHEN p.accumulated >= .75 * o.total THEN count_value ELSE o.max_value
-    END
-  ) AS p75_value,
-  min(
-    CASE
-      WHEN p.accumulated >= .90 * o.total THEN count_value ELSE o.max_value
-    END
-  ) AS p90_value
-FROM priorStats AS p
-INNER JOIN overallStats AS o ON p.stratum_id = o.stratum_id
-GROUP BY
+  CAST(o.stratum_id as VARCHAR(255)) as stratum_id,
+  MIN(
+    case
+      when p.accumulated >= .50 * o.total then count_value else o.max_value
+    end
+  ) as median_value,
+  MIN(
+    case
+      when p.accumulated >= .10 * o.total then count_value else o.max_value
+    end
+  ) as p10_value,
+  MIN(
+    case
+      when p.accumulated >= .25 * o.total then count_value else o.max_value
+    end
+  ) as p25_value,
+  MIN(
+    case
+      when p.accumulated >= .75 * o.total then count_value else o.max_value
+    end
+  ) as p75_value,
+  MIN(
+    case
+      when p.accumulated >= .90 * o.total then count_value else o.max_value
+    end
+  ) as p90_value
+from priorStats as p
+inner join overallStats as o on p.stratum_id = o.stratum_id
+group by
   o.stratum_id, o.total, o.min_value, o.max_value, o.avg_value, o.stdev_value

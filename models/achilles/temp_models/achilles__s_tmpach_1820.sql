@@ -1,29 +1,30 @@
 -- 1820	Number of measurement records  by measurement start month
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-WITH rawData AS (
-  SELECT
-    YEAR(m.measurement_date) * 100 + MONTH(m.measurement_date) AS stratum_1,
-    count(m.person_id) AS count_value
-  FROM
-    {{ source("omop", "measurement" ) }} AS m
-    JOIN
-    {{ source("omop", "observation_period" ) }} AS op
-    ON
+with rawData as (
+  select
+    YEAR(m.measurement_date) * 100 + MONTH(m.measurement_date) as stratum_1,
+    COUNT(m.person_id) as count_value
+  from
+    {{ source("omop", "measurement" ) }} as m
+  inner join
+    {{ source("omop", "observation_period" ) }} as op
+    on
       m.person_id = op.person_id
-      AND
+      and
       m.measurement_date >= op.observation_period_start_date
-      AND
+      and
       m.measurement_date <= op.observation_period_end_date
-  GROUP BY
+  group by
     YEAR(m.measurement_date) * 100 + MONTH(m.measurement_date)
 )
-SELECT
-  1820 AS analysis_id,
+
+select
+  1820 as analysis_id,
   count_value,
-  CAST(stratum_1 AS VARCHAR(255)) AS stratum_1,
-  CAST(NULL AS VARCHAR(255)) AS stratum_2,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5
-FROM
+  CAST(stratum_1 as VARCHAR(255)) as stratum_1,
+  CAST(NULL as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5
+from
   rawData

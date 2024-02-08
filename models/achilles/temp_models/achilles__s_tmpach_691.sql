@@ -1,34 +1,34 @@
 -- 691	Number of persons that have at least x procedures
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-SELECT
-  691 AS analysis_id,
-  CAST(po.procedure_concept_id AS VARCHAR(255)) AS stratum_1,
-  CAST(po.prc_cnt AS VARCHAR(255)) AS stratum_2,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5,
+select
+  691 as analysis_id,
+  CAST(po.procedure_concept_id as VARCHAR(255)) as stratum_1,
+  CAST(po.prc_cnt as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5,
   SUM(COUNT(po.person_id))
-    OVER (PARTITION BY po.procedure_concept_id ORDER BY po.prc_cnt DESC)
-    AS count_value
-FROM (
-  SELECT
+    over (partition by po.procedure_concept_id order by po.prc_cnt desc)
+  as count_value
+from (
+  select
     po.procedure_concept_id,
     po.person_id,
-    COUNT(po.procedure_occurrence_id) AS prc_cnt
-  FROM
-    {{ source("omop", "procedure_occurrence" ) }} AS po
-  INNER JOIN
-    {{ source("omop", "observation_period" ) }} AS op
-    ON
+    COUNT(po.procedure_occurrence_id) as prc_cnt
+  from
+    {{ source("omop", "procedure_occurrence" ) }} as po
+  inner join
+    {{ source("omop", "observation_period" ) }} as op
+    on
       po.person_id = op.person_id
-      AND
+      and
       po.procedure_date >= op.observation_period_start_date
-      AND
+      and
       po.procedure_date <= op.observation_period_end_date
-  GROUP BY
+  group by
     po.person_id,
     po.procedure_concept_id
-) AS po
-GROUP BY
+) as po
+group by
   po.procedure_concept_id,
   po.prc_cnt

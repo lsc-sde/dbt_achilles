@@ -1,23 +1,24 @@
 -- 1102	Number of care sites by location 3-digit zip
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-WITH rawData AS (
-  SELECT
-    LEFT(l1.zip, 3) AS stratum_1,
-    count(DISTINCT care_site_id) AS count_value
-  FROM {{ source("omop", "care_site" ) }} AS cs1
-  INNER JOIN {{ source("omop", "location" ) }} AS l1
-    ON cs1.location_id = l1.location_id
-  WHERE
-    cs1.location_id IS NOT NULL
-    AND l1.zip IS NOT NULL
-  GROUP BY LEFT(l1.zip, 3)
+with rawData as (
+  select
+    LEFT(l1.zip, 3) as stratum_1,
+    COUNT(distinct care_site_id) as count_value
+  from {{ source("omop", "care_site" ) }} as cs1
+  inner join {{ source("omop", "location" ) }} as l1
+    on cs1.location_id = l1.location_id
+  where
+    cs1.location_id is not NULL
+    and l1.zip is not NULL
+  group by LEFT(l1.zip, 3)
 )
-SELECT
-  1102 AS analysis_id,
+
+select
+  1102 as analysis_id,
   count_value,
-  CAST(stratum_1 AS VARCHAR(255)) AS stratum_1,
-  CAST(null AS VARCHAR(255)) AS stratum_2,
-  CAST(null AS VARCHAR(255)) AS stratum_3,
-  CAST(null AS VARCHAR(255)) AS stratum_4,
-  CAST(null AS VARCHAR(255)) AS stratum_5
-FROM rawData
+  CAST(stratum_1 as VARCHAR(255)) as stratum_1,
+  CAST(NULL as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5
+from rawData

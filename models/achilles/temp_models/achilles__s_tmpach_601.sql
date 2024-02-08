@@ -1,22 +1,22 @@
 -- 601	Number of procedure occurrence records, by procedure_concept_id
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-SELECT
-  601 AS analysis_id,
-  CAST(po.procedure_concept_id AS VARCHAR(255)) AS stratum_1,
-  CAST(NULL AS VARCHAR(255)) AS stratum_2,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5,
-  count(po.person_id) AS count_value
-FROM
-  {{ source("omop", "procedure_occurrence" ) }} AS po
-INNER JOIN
-  {{ source("omop", "observation_period" ) }} AS op
-  ON
+select
+  601 as analysis_id,
+  CAST(po.procedure_concept_id as VARCHAR(255)) as stratum_1,
+  CAST(NULL as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5,
+  COUNT(po.person_id) as count_value
+from
+  {{ source("omop", "procedure_occurrence" ) }} as po
+inner join
+  {{ source("omop", "observation_period" ) }} as op
+  on
     po.person_id = op.person_id
-    AND
+    and
     po.procedure_date >= op.observation_period_start_date
-    AND
+    and
     po.procedure_date <= op.observation_period_end_date
-GROUP BY
+group by
   po.procedure_concept_id

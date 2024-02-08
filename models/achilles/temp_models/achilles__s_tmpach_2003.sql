@@ -1,18 +1,18 @@
-SELECT
-  2003 AS analysis_id,
-  CAST(NULL AS VARCHAR(255)) AS stratum_1,
-  CAST(NULL AS VARCHAR(255)) AS stratum_2,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5,
-  count(DISTINCT vo.person_id) AS count_value
-FROM
-  {{ source("omop", "visit_occurrence" ) }} AS vo
-INNER JOIN
-  {{ source("omop", "observation_period" ) }} AS op
-  ON
+select
+  2003 as analysis_id,
+  CAST(NULL as VARCHAR(255)) as stratum_1,
+  CAST(NULL as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5,
+  COUNT(distinct vo.person_id) as count_value
+from
+  {{ source("omop", "visit_occurrence" ) }} as vo
+inner join
+  {{ source("omop", "observation_period" ) }} as op
+  on
     vo.person_id = op.person_id
-    AND
+    and
     vo.visit_start_date >= op.observation_period_start_date
-    AND
+    and
     vo.visit_start_date <= op.observation_period_end_date

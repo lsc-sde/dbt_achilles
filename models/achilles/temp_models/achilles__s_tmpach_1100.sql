@@ -1,23 +1,24 @@
 -- 1100	Number of persons by location 3-digit zip
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-WITH rawData AS (
-  SELECT
-    LEFT(l1.zip, 3) AS stratum_1,
-    count(DISTINCT person_id) AS count_value
-  FROM {{ source("omop", "person" ) }} AS p1
-  INNER JOIN {{ source("omop", "location" ) }} AS l1
-    ON p1.location_id = l1.location_id
-  WHERE
-    p1.location_id IS NOT NULL
-    AND l1.zip IS NOT NULL
-  GROUP BY LEFT(l1.zip, 3)
+with rawData as (
+  select
+    LEFT(l1.zip, 3) as stratum_1,
+    COUNT(distinct person_id) as count_value
+  from {{ source("omop", "person" ) }} as p1
+  inner join {{ source("omop", "location" ) }} as l1
+    on p1.location_id = l1.location_id
+  where
+    p1.location_id is not NULL
+    and l1.zip is not NULL
+  group by LEFT(l1.zip, 3)
 )
-SELECT
-  1100 AS analysis_id,
+
+select
+  1100 as analysis_id,
   count_value,
-  CAST(stratum_1 AS VARCHAR(255)) AS stratum_1,
-  CAST(null AS VARCHAR(255)) AS stratum_2,
-  CAST(null AS VARCHAR(255)) AS stratum_3,
-  CAST(null AS VARCHAR(255)) AS stratum_4,
-  CAST(null AS VARCHAR(255)) AS stratum_5
-FROM rawData
+  CAST(stratum_1 as VARCHAR(255)) as stratum_1,
+  CAST(NULL as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5
+from rawData

@@ -1,22 +1,23 @@
 -- 112	Number of persons by observation period end month
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-WITH rawData AS (
-  SELECT
+with rawData as (
+  select
     YEAR(op1.observation_period_end_date) * 100
-    + MONTH(op1.observation_period_end_date) AS stratum_1,
-    count(DISTINCT op1.PERSON_ID) AS count_value
-  FROM
-    {{ source("omop", "observation_period" ) }} AS op1
-  GROUP BY
+    + MONTH(op1.observation_period_end_date) as stratum_1,
+    COUNT(distinct op1.PERSON_ID) as count_value
+  from
+    {{ source("omop", "observation_period" ) }} as op1
+  group by
     YEAR(op1.observation_period_end_date) * 100
     + MONTH(op1.observation_period_end_date)
 )
-SELECT
-  112 AS analysis_id,
+
+select
+  112 as analysis_id,
   count_value,
-  CAST(stratum_1 AS VARCHAR(255)) AS stratum_1,
-  CAST(null AS VARCHAR(255)) AS stratum_2,
-  CAST(null AS VARCHAR(255)) AS stratum_3,
-  CAST(null AS VARCHAR(255)) AS stratum_4,
-  CAST(null AS VARCHAR(255)) AS stratum_5
-FROM rawData
+  CAST(stratum_1 as VARCHAR(255)) as stratum_1,
+  CAST(null as VARCHAR(255)) as stratum_2,
+  CAST(null as VARCHAR(255)) as stratum_3,
+  CAST(null as VARCHAR(255)) as stratum_4,
+  CAST(null as VARCHAR(255)) as stratum_5
+from rawData

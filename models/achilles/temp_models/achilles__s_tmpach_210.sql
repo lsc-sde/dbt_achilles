@@ -1,21 +1,21 @@
 -- 210 Number of visit_occurrence records outside a valid observation period
-SELECT
-  210 AS analysis_id,
-  CAST(NULL AS VARCHAR(255)) AS stratum_1,
-  CAST(NULL AS VARCHAR(255)) AS stratum_2,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5,
-  count(*) AS count_value
-FROM
-  {{ source("omop", "visit_occurrence" ) }} AS vo
-LEFT JOIN
-  {{ source("omop", "observation_period" ) }} AS op
-  ON
+select
+  210 as analysis_id,
+  CAST(NULL as VARCHAR(255)) as stratum_1,
+  CAST(NULL as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5,
+  COUNT(*) as count_value
+from
+  {{ source("omop", "visit_occurrence" ) }} as vo
+left join
+  {{ source("omop", "observation_period" ) }} as op
+  on
     vo.person_id = op.person_id
-    AND
+    and
     vo.visit_start_date >= op.observation_period_start_date
-    AND
+    and
     vo.visit_start_date <= op.observation_period_end_date
-WHERE
-  op.person_id IS NULL
+where
+  op.person_id is NULL

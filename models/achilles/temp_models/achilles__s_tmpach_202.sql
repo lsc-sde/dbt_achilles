@@ -1,31 +1,32 @@
 -- 202	Number of persons by visit occurrence start month, by visit_concept_id
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-WITH rawData AS (
-  SELECT
-    vo.visit_concept_id AS stratum_1,
-    YEAR(vo.visit_start_date) * 100 + MONTH(vo.visit_start_date) AS stratum_2,
-    count(DISTINCT vo.person_id) AS count_value
-  FROM
-    {{ source("omop", "visit_occurrence" ) }} AS vo
-    JOIN
-    {{ source("omop", "observation_period" ) }} AS op
-    ON
+with rawData as (
+  select
+    vo.visit_concept_id as stratum_1,
+    YEAR(vo.visit_start_date) * 100 + MONTH(vo.visit_start_date) as stratum_2,
+    COUNT(distinct vo.person_id) as count_value
+  from
+    {{ source("omop", "visit_occurrence" ) }} as vo
+  inner join
+    {{ source("omop", "observation_period" ) }} as op
+    on
       vo.person_id = op.person_id
-      AND
+      and
       vo.visit_start_date >= op.observation_period_start_date
-      AND
+      and
       vo.visit_start_date <= op.observation_period_end_date
-  GROUP BY
+  group by
     vo.visit_concept_id,
     YEAR(vo.visit_start_date) * 100 + MONTH(vo.visit_start_date)
 )
-SELECT
-  202 AS analysis_id,
+
+select
+  202 as analysis_id,
   count_value,
-  CAST(stratum_1 AS VARCHAR(255)) AS stratum_1,
-  CAST(stratum_2 AS VARCHAR(255)) AS stratum_2,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5
-FROM
+  CAST(stratum_1 as VARCHAR(255)) as stratum_1,
+  CAST(stratum_2 as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5
+from
   rawData

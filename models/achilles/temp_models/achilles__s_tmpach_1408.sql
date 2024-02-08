@@ -30,4 +30,11 @@ inner join
   on p1.PERSON_ID = ppp1.PERSON_ID
 where ppp1.rn1 = 1
 group by
-  cast(floor(datediff(dd, ppp1.payer_plan_period_start_date, ppp1.payer_plan_period_end_date) / 30) as VARCHAR(255))
+  cast(
+    floor(
+      datediff(
+        dd, ppp1.payer_plan_period_start_date, ppp1.payer_plan_period_end_date
+      )
+      / 30
+    ) as VARCHAR(255)
+  )

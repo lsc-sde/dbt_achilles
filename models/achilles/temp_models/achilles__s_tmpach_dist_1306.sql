@@ -1,8 +1,8 @@
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-SELECT
+select
   analysis_id,
-  stratum1_id AS stratum_1,
-  stratum2_id AS stratum_2,
+  stratum1_id as stratum_1,
+  stratum2_id as stratum_2,
   count_value,
   min_value,
   max_value,
@@ -13,8 +13,8 @@ SELECT
   p25_value,
   p75_value,
   p90_value,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5
-FROM
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5
+from
   {{ ref ("achilles__tempResults_1306") }}

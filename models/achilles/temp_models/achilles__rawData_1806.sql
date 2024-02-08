@@ -1,29 +1,29 @@
 -- 1806	Distribution of age by measurement_concept_id
 --HINT DISTRIBUTE_ON_KEY(subject_id)
-SELECT
-  o.measurement_concept_id AS subject_id,
+select
+  o.measurement_concept_id as subject_id,
   p.gender_concept_id,
-  o.measurement_start_year - p.year_of_birth AS count_value
-FROM
-  {{ source("omop", "person" ) }} AS p
-INNER JOIN (
-  SELECT
+  o.measurement_start_year - p.year_of_birth as count_value
+from
+  {{ source("omop", "person" ) }} as p
+inner join (
+  select
     m.person_id,
     m.measurement_concept_id,
-    MIN(YEAR(m.measurement_date)) AS measurement_start_year
-  FROM
-    {{ source("omop", "measurement" ) }} AS m
-  INNER JOIN
-    {{ source("omop", "observation_period" ) }} AS op
-    ON
+    MIN(YEAR(m.measurement_date)) as measurement_start_year
+  from
+    {{ source("omop", "measurement" ) }} as m
+  inner join
+    {{ source("omop", "observation_period" ) }} as op
+    on
       m.person_id = op.person_id
-      AND
+      and
       m.measurement_date >= op.observation_period_start_date
-      AND
+      and
       m.measurement_date <= op.observation_period_end_date
-  GROUP BY
+  group by
     m.person_id,
     m.measurement_concept_id
-) AS o
-  ON
+) as o
+  on
     p.person_id = o.person_id

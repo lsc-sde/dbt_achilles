@@ -6,6 +6,7 @@ with century as (
   union
   select '20' as num
 ),
+
 tens as (
   select '0' as num
   union
@@ -27,6 +28,7 @@ tens as (
   union
   select '9' as num
 ),
+
 ones as (
   select '0' as num
   union
@@ -48,6 +50,7 @@ ones as (
   union
   select '9' as num
 ),
+
 months as (
   select '01' as num
   union
@@ -73,6 +76,7 @@ months as (
   union
   select '12' as num
 ),
+
 date_keys as (
   select concat(century.num, tens.num, ones.num, months.num) as obs_month
   from century
@@ -80,6 +84,7 @@ date_keys as (
   cross join ones
   cross join months
 ),
+
 -- From date_keys, we just need each year and the first and last day of each year
 ymd as (
   select
@@ -92,6 +97,7 @@ ymd as (
   where right(left(obs_month, 6), 2) in ('01', '12')
   group by left(obs_month, 4)
 ),
+
 -- This gives us each year and the first and last day of the year
 year_ranges as (
   select
@@ -111,6 +117,7 @@ year_ranges as (
       from {{ source("omop", "observation_period" ) }}
     )
 )
+
 select
   109 as analysis_id,
   cast(yr.obs_year as varchar(255)) as stratum_1,

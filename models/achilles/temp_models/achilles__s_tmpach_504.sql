@@ -1,37 +1,38 @@
 -- 504	Number of persons with a death, by calendar year by gender by age decile
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-WITH rawData AS (
-  SELECT
-    p.gender_concept_id AS stratum_2,
-    YEAR(d.death_date) AS stratum_1,
-    FLOOR((YEAR(d.death_date) - p.year_of_birth) / 10) AS stratum_3,
-    count(DISTINCT p.person_id) AS count_value
-  FROM
-    {{ source("omop", "person" ) }} AS p
-    JOIN
-    {{ source("omop", "death" ) }} AS d
-    ON
+with rawData as (
+  select
+    p.gender_concept_id as stratum_2,
+    YEAR(d.death_date) as stratum_1,
+    FLOOR((YEAR(d.death_date) - p.year_of_birth) / 10) as stratum_3,
+    COUNT(distinct p.person_id) as count_value
+  from
+    {{ source("omop", "person" ) }} as p
+  inner join
+    {{ source("omop", "death" ) }} as d
+    on
       p.person_id = d.person_id
-    JOIN
-    {{ source("omop", "observation_period" ) }} AS op
-    ON
+  inner join
+    {{ source("omop", "observation_period" ) }} as op
+    on
       d.person_id = op.person_id
-      AND
+      and
       d.death_date >= op.observation_period_start_date
-      AND
+      and
       d.death_date <= op.observation_period_end_date
-  GROUP BY
+  group by
     YEAR(d.death_date),
     p.gender_concept_id,
     FLOOR((YEAR(d.death_date) - p.year_of_birth) / 10)
 )
-SELECT
-  504 AS analysis_id,
+
+select
+  504 as analysis_id,
   count_value,
-  CAST(stratum_1 AS VARCHAR(255)) AS stratum_1,
-  CAST(stratum_2 AS VARCHAR(255)) AS stratum_2,
-  CAST(stratum_3 AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5
-FROM
+  CAST(stratum_1 as VARCHAR(255)) as stratum_1,
+  CAST(stratum_2 as VARCHAR(255)) as stratum_2,
+  CAST(stratum_3 as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5
+from
   rawData

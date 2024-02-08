@@ -1,22 +1,22 @@
 -- 414	Number of condition occurrence records, by condition_status_concept_id
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-SELECT
-  414 AS analysis_id,
-  CAST(co.condition_status_concept_id AS VARCHAR(255)) AS stratum_1,
-  CAST(NULL AS VARCHAR(255)) AS stratum_2,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5,
-  count(*) AS count_value
-FROM
-  {{ source("omop", "condition_occurrence" ) }} AS co
-INNER JOIN
-  {{ source("omop", "observation_period" ) }} AS op
-  ON
+select
+  414 as analysis_id,
+  CAST(co.condition_status_concept_id as VARCHAR(255)) as stratum_1,
+  CAST(NULL as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5,
+  COUNT(*) as count_value
+from
+  {{ source("omop", "condition_occurrence" ) }} as co
+inner join
+  {{ source("omop", "observation_period" ) }} as op
+  on
     co.person_id = op.person_id
-    AND
+    and
     co.condition_start_date >= op.observation_period_start_date
-    AND
+    and
     co.condition_start_date <= op.observation_period_end_date
-GROUP BY
+group by
   co.condition_status_concept_id

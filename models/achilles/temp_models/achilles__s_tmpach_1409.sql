@@ -15,6 +15,6 @@ inner join
 ,
   {{ ref ("achilles__temp_dates_1409") }} as t1
 where
-  YEAR(ppp1.payer_plan_period_START_DATE) <= t1.obs_year
-  and YEAR(ppp1.payer_plan_period_END_DATE) >= t1.obs_year
+  year(ppp1.payer_plan_period_START_DATE) <= t1.obs_year
+  and year(ppp1.payer_plan_period_END_DATE) >= t1.obs_year
 group by t1.obs_year

@@ -1,29 +1,29 @@
 -- 606	Distribution of age by procedure_concept_id
 --HINT DISTRIBUTE_ON_KEY(subject_id)
-SELECT
-  po.procedure_concept_id AS subject_id,
+select
+  po.procedure_concept_id as subject_id,
   p.gender_concept_id,
-  po.procedure_start_year - p.year_of_birth AS count_value
-FROM
-  {{ source("omop", "person" ) }} AS p
-INNER JOIN (
-  SELECT
+  po.procedure_start_year - p.year_of_birth as count_value
+from
+  {{ source("omop", "person" ) }} as p
+inner join (
+  select
     po.person_id,
     po.procedure_concept_id,
-    MIN(YEAR(po.procedure_date)) AS procedure_start_year
-  FROM
-    {{ source("omop", "procedure_occurrence" ) }} AS po
-  INNER JOIN
-    {{ source("omop", "observation_period" ) }} AS op
-    ON
+    MIN(YEAR(po.procedure_date)) as procedure_start_year
+  from
+    {{ source("omop", "procedure_occurrence" ) }} as po
+  inner join
+    {{ source("omop", "observation_period" ) }} as op
+    on
       po.person_id = op.person_id
-      AND
+      and
       po.procedure_date >= op.observation_period_start_date
-      AND
+      and
       po.procedure_date <= op.observation_period_end_date
-  GROUP BY
+  group by
     po.person_id,
     po.procedure_concept_id
-) AS po
-  ON
+) as po
+  on
     p.person_id = po.person_id

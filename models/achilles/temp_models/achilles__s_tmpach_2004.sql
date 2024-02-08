@@ -14,7 +14,7 @@ with rawData as (
   from
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__obs" ) }}) as subquery) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -33,7 +33,7 @@ with rawData as (
   from
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__prococ" ) }}) as subquery) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -62,7 +62,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -81,7 +81,7 @@ with rawData as (
   from
     (select count(*) as count_value from (select person_id from {{ source("omop", "death" ) }}) as subquery) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -107,7 +107,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -133,7 +133,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -161,7 +161,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -180,7 +180,7 @@ with rawData as (
   from
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__msmt" ) }}) as subquery) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -209,7 +209,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -238,7 +238,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -269,7 +269,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -298,7 +298,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -329,7 +329,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -360,7 +360,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -393,7 +393,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -412,7 +412,7 @@ with rawData as (
   from
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__dvexp" ) }}) as subquery) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -441,7 +441,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -470,7 +470,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -501,7 +501,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -530,7 +530,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -561,7 +561,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -592,7 +592,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -625,7 +625,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -654,7 +654,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -685,7 +685,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -716,7 +716,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -749,7 +749,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -780,7 +780,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -813,7 +813,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -846,7 +846,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -881,7 +881,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -900,7 +900,7 @@ with rawData as (
   from
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__drexp" ) }}) as subquery) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -929,7 +929,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -958,7 +958,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -989,7 +989,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1018,7 +1018,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1049,7 +1049,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1080,7 +1080,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1113,7 +1113,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1142,7 +1142,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1173,7 +1173,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1204,7 +1204,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1237,7 +1237,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1268,7 +1268,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1301,7 +1301,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1334,7 +1334,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1369,7 +1369,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1398,7 +1398,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1429,7 +1429,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1460,7 +1460,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1493,7 +1493,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1524,7 +1524,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1557,7 +1557,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1590,7 +1590,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1625,7 +1625,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1656,7 +1656,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1689,7 +1689,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1722,7 +1722,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1757,7 +1757,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1790,7 +1790,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1825,7 +1825,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1860,7 +1860,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1897,7 +1897,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1916,7 +1916,7 @@ with rawData as (
   from
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__conoc" ) }}) as subquery) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1945,7 +1945,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -1974,7 +1974,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2005,7 +2005,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2034,7 +2034,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2065,7 +2065,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2096,7 +2096,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2129,7 +2129,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2158,7 +2158,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2189,7 +2189,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2220,7 +2220,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2253,7 +2253,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2284,7 +2284,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2317,7 +2317,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2350,7 +2350,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2385,7 +2385,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2414,7 +2414,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2445,7 +2445,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2476,7 +2476,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2509,7 +2509,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2540,7 +2540,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2573,7 +2573,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2606,7 +2606,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2641,7 +2641,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2672,7 +2672,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2705,7 +2705,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2738,7 +2738,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2773,7 +2773,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2806,7 +2806,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2841,7 +2841,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2876,7 +2876,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2913,7 +2913,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2942,7 +2942,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -2973,7 +2973,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3004,7 +3004,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3037,7 +3037,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3068,7 +3068,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3101,7 +3101,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3134,7 +3134,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3169,7 +3169,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3200,7 +3200,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3233,7 +3233,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3266,7 +3266,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3301,7 +3301,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3334,7 +3334,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3369,7 +3369,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3404,7 +3404,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3441,7 +3441,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3472,7 +3472,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3505,7 +3505,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3538,7 +3538,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3573,7 +3573,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3606,7 +3606,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3641,7 +3641,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3676,7 +3676,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3713,7 +3713,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3746,7 +3746,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3781,7 +3781,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3816,7 +3816,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3853,7 +3853,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3888,7 +3888,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3925,7 +3925,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -3962,7 +3962,7 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
@@ -4001,8 +4001,9 @@ with rawData as (
       ) as subquery
     ) as personIntersection,
     (
-      select count(distinct (person_id)) as totalPersons
+      select count(distinct person_id) as totalPersons
       from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
 )
+
 select * from rawData

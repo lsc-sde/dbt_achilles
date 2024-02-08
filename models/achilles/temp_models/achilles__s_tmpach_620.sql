@@ -1,29 +1,30 @@
 -- 620	Number of procedure occurrence records by condition occurrence start month
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
-WITH rawData AS (
-  SELECT
-    YEAR(po.procedure_date) * 100 + MONTH(po.procedure_date) AS stratum_1,
-    count(po.person_id) AS count_value
-  FROM
-    {{ source("omop", "procedure_occurrence" ) }} AS po
-    JOIN
-    {{ source("omop", "observation_period" ) }} AS op
-    ON
+with rawData as (
+  select
+    YEAR(po.procedure_date) * 100 + MONTH(po.procedure_date) as stratum_1,
+    COUNT(po.person_id) as count_value
+  from
+    {{ source("omop", "procedure_occurrence" ) }} as po
+  inner join
+    {{ source("omop", "observation_period" ) }} as op
+    on
       po.person_id = op.person_id
-      AND
+      and
       po.procedure_date >= op.observation_period_start_date
-      AND
+      and
       po.procedure_date <= op.observation_period_end_date
-  GROUP BY
+  group by
     YEAR(po.procedure_date) * 100 + MONTH(po.procedure_date)
 )
-SELECT
-  620 AS analysis_id,
+
+select
+  620 as analysis_id,
   count_value,
-  CAST(stratum_1 AS VARCHAR(255)) AS stratum_1,
-  CAST(NULL AS VARCHAR(255)) AS stratum_2,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5
-FROM
+  CAST(stratum_1 as VARCHAR(255)) as stratum_1,
+  CAST(NULL as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5
+from
   rawData

@@ -1,19 +1,19 @@
 -- 630	Number of procedure_occurrence records inside a valid observation period
-SELECT
-  630 AS analysis_id,
-  CAST(NULL AS VARCHAR(255)) AS stratum_1,
-  CAST(NULL AS VARCHAR(255)) AS stratum_2,
-  CAST(NULL AS VARCHAR(255)) AS stratum_3,
-  CAST(NULL AS VARCHAR(255)) AS stratum_4,
-  CAST(NULL AS VARCHAR(255)) AS stratum_5,
-  count(*) AS count_value
-FROM
-  {{ source("omop", "procedure_occurrence" ) }} AS po
-INNER JOIN
-  {{ source("omop", "observation_period" ) }} AS op
-  ON
+select
+  630 as analysis_id,
+  CAST(NULL as VARCHAR(255)) as stratum_1,
+  CAST(NULL as VARCHAR(255)) as stratum_2,
+  CAST(NULL as VARCHAR(255)) as stratum_3,
+  CAST(NULL as VARCHAR(255)) as stratum_4,
+  CAST(NULL as VARCHAR(255)) as stratum_5,
+  COUNT(*) as count_value
+from
+  {{ source("omop", "procedure_occurrence" ) }} as po
+inner join
+  {{ source("omop", "observation_period" ) }} as op
+  on
     po.person_id = op.person_id
-    AND
+    and
     po.procedure_date >= op.observation_period_start_date
-    AND
+    and
     po.procedure_date <= op.observation_period_end_date

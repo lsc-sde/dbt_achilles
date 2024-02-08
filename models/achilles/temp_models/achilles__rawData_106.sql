@@ -10,7 +10,7 @@ from
       DATEDIFF(
         dd, op.observation_period_start_date, op.observation_period_end_date
       ) as count_value,
-      row_number() over (
+      ROW_NUMBER() over (
         partition by op.person_id order by op.observation_period_start_date asc
       ) as rn
     from {{ source("omop", "observation_period" ) }} as op
