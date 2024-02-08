@@ -1,0 +1,4 @@
+dbt-core==1.4.5
+dbt-sqlserver==1.4.3
+sqlfluff==2.1.2
+sqlfluff-templater-dbt==2.1.2

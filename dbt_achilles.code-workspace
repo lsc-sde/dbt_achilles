@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"name": "dbt_achilles",
+			"path": "."
+		},
+		{
+			"name": "dbt_omop",
+			"path": "../dbt_omop"
+		},
+		{
+			"name": "prd_omop",
+			"path": "../prd_omop"
+		},
+		{
+			"path": "../../iac"
+		},
+		{
+			"path": "../../../azure_lander/jupyterlab_docker_images"
+		}
+	],
+	"settings": {
+		"yaml.schemas": {
+			"https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/dbt_yml_files.json": [
+				"/**/*.yml",
+				"!profiles.yml",
+				"!dbt_project.yml",
+				"!packages.yml",
+				"!selectors.yml",
+				"!profile_template.yml"
+			],
+			"https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/dbt_project.json": [
+				"dbt_project.yml"
+			],
+			"https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/selectors.json": [
+				"selectors.yml"
+			],
+			"https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/packages.json": [
+				"packages.yml"
+			]
+		},
+		"dbt.queryLimit": 200,
+	}
+}

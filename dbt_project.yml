@@ -1,0 +1,49 @@
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: "dbt_achilles"
+version: "0.0.1"
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: "dbt_achilles_databricks"
+
+vars:
+  achilles_source_schema: "v1_bronze"
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target" # directory which will store compiled SQL files
+clean-targets: # directories to be removed by `dbt clean`
+  - "target"
+  # - "dbt_packages"
+
+# Prefer macros in tsql-utils
+# https://github.com/dbt-msft/tsql-utils
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ["tsql_utils", "dbt_utils"]
+  - macro_namespace: dbt_date
+    search_order: ["tsql_utils", "dbt_date"]
+  - macro_namespace: dbt_expectations
+    search_order: ["tsql_utils", "dbt_expectations"]
+  - macro_namespace: audit_helper
+    search_order: ["tsql_utils", "audit_helper"]
+
+tests:
+  +store_failures: true
+
+models:
+  dbt_achilles:
+    achilles:
+      schema: achilles
+      +materialized: table
+      +tags: achilles
