@@ -7,4 +7,4 @@ select
   cast(null as varchar(255)) as stratum_4,
   cast(null as varchar(255)) as stratum_5,
   COUNT_BIG(distinct person_id) as count_value
-from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+from {{ source("omop", "person" ) }}

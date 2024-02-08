@@ -3,15 +3,15 @@
 WITH rawData (count_value) AS (
   SELECT DATEDIFF(DD, d.death_date, vo.max_date) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__death" ) }} AS d
+    {{ source("omop", "death" ) }} AS d
     JOIN (
     SELECT
       vo.person_id,
       MAX(vo.visit_start_date) AS max_date
     FROM
-      {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} AS vo
+      {{ source("omop", "visit_occurrence" ) }} AS vo
     INNER JOIN
-      {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+      {{ source("omop", "observation_period" ) }} AS op
       ON
         vo.person_id = op.person_id
         AND

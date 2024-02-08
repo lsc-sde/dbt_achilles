@@ -8,7 +8,7 @@ select
   cast(null as varchar(255)) as stratum_4,
   cast(null as varchar(255)) as stratum_5,
   count_big(*) as count_value
-from {{ ref(  var("achilles_source_schema") + "__provider" ) }} as p
-inner join {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} as vo
+from {{ source("omop", "provider" ) }} as p
+inner join {{ source("omop", "visit_occurrence" ) }} as vo
   on vo.provider_id = p.provider_id
 group by p.specialty_concept_id, visit_concept_id

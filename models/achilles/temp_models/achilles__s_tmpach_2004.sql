@@ -15,7 +15,7 @@ with rawData as (
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__obs" ) }}) as subquery) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -34,7 +34,7 @@ with rawData as (
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__prococ" ) }}) as subquery) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -63,7 +63,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -79,10 +79,10 @@ with rawData as (
     cast(NULL as VARCHAR(255)) as stratum_5,
     personIntersection.count_value
   from
-    (select count(*) as count_value from (select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}) as subquery) as personIntersection,
+    (select count(*) as count_value from (select person_id from {{ source("omop", "death" ) }}) as subquery) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -101,14 +101,14 @@ with rawData as (
     (
       select count(
         *) as count_value from (
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -127,14 +127,14 @@ with rawData as (
     (
       select count(
         *) as count_value from (
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -153,7 +153,7 @@ with rawData as (
     (
       select count(
         *) as count_value from (
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -162,7 +162,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -181,7 +181,7 @@ with rawData as (
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__msmt" ) }}) as subquery) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -210,7 +210,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -239,7 +239,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -270,7 +270,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -294,12 +294,12 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -323,14 +323,14 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -354,14 +354,14 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -385,7 +385,7 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -394,7 +394,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -413,7 +413,7 @@ with rawData as (
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__dvexp" ) }}) as subquery) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -442,7 +442,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -471,7 +471,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -502,7 +502,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -526,12 +526,12 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -555,14 +555,14 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -586,14 +586,14 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -617,7 +617,7 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -626,7 +626,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -655,7 +655,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -686,7 +686,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -717,7 +717,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -750,7 +750,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -776,12 +776,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -807,14 +807,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -840,14 +840,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -873,7 +873,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -882,7 +882,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -901,7 +901,7 @@ with rawData as (
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__drexp" ) }}) as subquery) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -930,7 +930,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -959,7 +959,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -990,7 +990,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1014,12 +1014,12 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__drexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1043,14 +1043,14 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__drexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1074,14 +1074,14 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__drexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1105,7 +1105,7 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__drexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -1114,7 +1114,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1143,7 +1143,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1174,7 +1174,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1205,7 +1205,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1238,7 +1238,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1264,12 +1264,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1295,14 +1295,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1328,14 +1328,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1361,7 +1361,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -1370,7 +1370,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1399,7 +1399,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1430,7 +1430,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1461,7 +1461,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1494,7 +1494,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1520,12 +1520,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1551,14 +1551,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1584,14 +1584,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1617,7 +1617,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -1626,7 +1626,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1657,7 +1657,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1690,7 +1690,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1723,7 +1723,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1758,7 +1758,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1786,12 +1786,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1819,14 +1819,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1854,14 +1854,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1889,7 +1889,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -1898,7 +1898,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1917,7 +1917,7 @@ with rawData as (
     (select count(*) as count_value from (select person_id from {{ ref( "achilles__conoc" ) }}) as subquery) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1946,7 +1946,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -1975,7 +1975,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2006,7 +2006,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2030,12 +2030,12 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__conoc" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2059,14 +2059,14 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__conoc" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2090,14 +2090,14 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__conoc" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2121,7 +2121,7 @@ with rawData as (
       from (
         select person_id from {{ ref( "achilles__conoc" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -2130,7 +2130,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2159,7 +2159,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2190,7 +2190,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2221,7 +2221,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2254,7 +2254,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2280,12 +2280,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2311,14 +2311,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2344,14 +2344,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2377,7 +2377,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -2386,7 +2386,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2415,7 +2415,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2446,7 +2446,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2477,7 +2477,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2510,7 +2510,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2536,12 +2536,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2567,14 +2567,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2600,14 +2600,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2633,7 +2633,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -2642,7 +2642,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2673,7 +2673,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2706,7 +2706,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2739,7 +2739,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2774,7 +2774,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2802,12 +2802,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2835,14 +2835,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2870,14 +2870,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2905,7 +2905,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -2914,7 +2914,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2943,7 +2943,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -2974,7 +2974,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3005,7 +3005,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3038,7 +3038,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3064,12 +3064,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__drexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3095,14 +3095,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__drexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3128,14 +3128,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__drexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3161,7 +3161,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__drexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -3170,7 +3170,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3201,7 +3201,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3234,7 +3234,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3267,7 +3267,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3302,7 +3302,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3330,12 +3330,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3363,14 +3363,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3398,14 +3398,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3433,7 +3433,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -3442,7 +3442,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3473,7 +3473,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3506,7 +3506,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3539,7 +3539,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3574,7 +3574,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3602,12 +3602,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3635,14 +3635,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3670,14 +3670,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3705,7 +3705,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__dvexp" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -3714,7 +3714,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3747,7 +3747,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3782,7 +3782,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3817,7 +3817,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3854,7 +3854,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3884,12 +3884,12 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3919,14 +3919,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__obs" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3956,14 +3956,14 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
       ) as subquery
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
   union all
   select
@@ -3993,7 +3993,7 @@ with rawData as (
         intersect
         select person_id from {{ ref( "achilles__msmt" ) }}
         intersect
-        select person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+        select person_id from {{ source("omop", "death" ) }}
         intersect
         select person_id from {{ ref( "achilles__prococ" ) }}
         intersect
@@ -4002,7 +4002,7 @@ with rawData as (
     ) as personIntersection,
     (
       select count(distinct (person_id)) as totalPersons
-      from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+      from {{ source("omop", "person" ) }}
     ) as totalPersonsDb
 )
 select * from rawData

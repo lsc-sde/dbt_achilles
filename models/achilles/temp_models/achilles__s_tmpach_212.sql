@@ -6,9 +6,9 @@ WITH rawData AS (
     YEAR(visit_start_date) AS stratum_1,
     FLOOR((YEAR(visit_start_date) - p1.year_of_birth) / 10) AS stratum_3,
     COUNT_BIG(DISTINCT p1.PERSON_ID) AS count_value
-  FROM {{ ref(  var("achilles_source_schema") + "__person" ) }} AS p1
+  FROM {{ source("omop", "person" ) }} AS p1
   INNER JOIN
-    {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} AS vo1
+    {{ source("omop", "visit_occurrence" ) }} AS vo1
     ON p1.person_id = vo1.person_id
   GROUP BY
     YEAR(visit_start_date),

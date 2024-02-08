@@ -16,9 +16,9 @@ FROM (
     de.person_id,
     COUNT(de.drug_exposure_id) AS drg_cnt
   FROM
-    {{ ref(  var("achilles_source_schema") + "__drug_exposure" ) }} AS de
+    {{ source("omop", "drug_exposure" ) }} AS de
   INNER JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       de.person_id = op.person_id
       AND

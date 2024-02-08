@@ -14,9 +14,9 @@ FROM (
     FROM (
       SELECT co.person_id
       FROM
-        {{ ref(  var("achilles_source_schema") + "__condition_occurrence" ) }} AS co
+        {{ source("omop", "condition_occurrence" ) }} AS co
       INNER JOIN
-        {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+        {{ source("omop", "observation_period" ) }} AS op
         ON
           co.person_id = op.person_id
           AND
@@ -29,9 +29,9 @@ FROM (
     FROM (
       SELECT de.person_id
       FROM
-        {{ ref(  var("achilles_source_schema") + "__drug_exposure" ) }} AS de
+        {{ source("omop", "drug_exposure" ) }} AS de
       INNER JOIN
-        {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+        {{ source("omop", "observation_period" ) }} AS op
         ON
           de.person_id = op.person_id
           AND

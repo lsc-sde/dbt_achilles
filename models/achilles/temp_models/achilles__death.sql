@@ -1,1 +1,1 @@
-select distinct person_id from {{ ref(  var("achilles_source_schema") + "__death" ) }}
+select distinct person_id from {{ source("omop", "death" ) }}

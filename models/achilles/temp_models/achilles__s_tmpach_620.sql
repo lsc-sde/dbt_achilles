@@ -5,9 +5,9 @@ WITH rawData AS (
     YEAR(po.procedure_date) * 100 + MONTH(po.procedure_date) AS stratum_1,
     COUNT_BIG(po.person_id) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__procedure_occurrence" ) }} AS po
+    {{ source("omop", "procedure_occurrence" ) }} AS po
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       po.person_id = op.person_id
       AND

@@ -2,8 +2,8 @@ with rawData (person_id, age_value) as
 (
 select p.person_id,
   MIN(YEAR(observation_period_start_date)) - P.YEAR_OF_BIRTH as age_value
-  from {{ ref(  var("achilles_source_schema") + "__person" ) }} p
-  JOIN {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} op on p.person_id = op.person_id
+  from {{ source("omop", "person" ) }} p
+  JOIN {{ source("omop", "observation_period" ) }} op on p.person_id = op.person_id
   group by p.person_id, p.year_of_birth
 ),
 overallStats (avg_value, stdev_value, min_value, max_value, total) as

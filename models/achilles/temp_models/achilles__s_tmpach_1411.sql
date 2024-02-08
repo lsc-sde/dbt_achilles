@@ -11,8 +11,8 @@ select
   ) as stratum_1,
   COUNT_BIG(distinct p1.PERSON_ID) as count_value
 from
-  {{ ref(  var("achilles_source_schema") + "__person" ) }} as p1
-inner join {{ ref(  var("achilles_source_schema") + "__payer_plan_period" ) }} as ppp1
+  {{ source("omop", "person" ) }} as p1
+inner join {{ source("omop", "payer_plan_period" ) }} as ppp1
   on p1.person_id = ppp1.person_id
 group by
   DATEFROMPARTS(YEAR(payer_plan_period_start_date), MONTH(payer_plan_period_start_date), 1)

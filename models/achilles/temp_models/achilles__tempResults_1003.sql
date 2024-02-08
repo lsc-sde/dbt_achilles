@@ -3,9 +3,9 @@
 WITH rawData (count_value) AS (
   SELECT COUNT_BIG(DISTINCT ce.condition_concept_id) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__condition_era" ) }} AS ce
+    {{ source("omop", "condition_era" ) }} AS ce
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       ce.person_id = op.person_id
       AND

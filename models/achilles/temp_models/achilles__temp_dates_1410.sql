@@ -9,4 +9,4 @@ SELECT DISTINCT
   ) AS obs_month_start,
   EOMONTH(payer_plan_period_start_date) AS obs_month_end
 FROM
-  {{ ref(  var("achilles_source_schema") + "__payer_plan_period" ) }}
+  {{ source("omop", "payer_plan_period" ) }}

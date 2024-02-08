@@ -5,9 +5,9 @@ WITH rawData (stratum1_id, count_value) AS (
     de.drug_concept_id AS stratum1_id,
     DATEDIFF(DD, de.drug_era_start_date, de.drug_era_end_date) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__drug_era" ) }} AS de
+    {{ source("omop", "drug_era" ) }} AS de
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       de.person_id = op.person_id
       AND

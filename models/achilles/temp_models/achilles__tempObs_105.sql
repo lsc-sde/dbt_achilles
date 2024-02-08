@@ -12,6 +12,6 @@ from
       row_number() over (
         partition by op.person_id order by op.observation_period_start_date asc
       ) as rn
-    from {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} as op
+    from {{ source("omop", "observation_period" ) }} as op
   ) as A
 where rn = 1

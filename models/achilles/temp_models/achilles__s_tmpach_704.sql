@@ -9,13 +9,13 @@ WITH rawData AS (
       AS stratum_4,
     COUNT_BIG(DISTINCT p.person_id) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__person" ) }} AS p
+    {{ source("omop", "person" ) }} AS p
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__drug_exposure" ) }} AS de
+    {{ source("omop", "drug_exposure" ) }} AS de
     ON
       p.person_id = de.person_id
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       de.person_id = op.person_id
       AND

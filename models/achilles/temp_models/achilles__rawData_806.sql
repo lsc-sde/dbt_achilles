@@ -5,16 +5,16 @@ SELECT
   p.gender_concept_id,
   o.observation_start_year - p.year_of_birth AS count_value
 FROM
-  {{ ref(  var("achilles_source_schema") + "__person" ) }} AS p
+  {{ source("omop", "person" ) }} AS p
 INNER JOIN (
   SELECT
     o.person_id,
     o.observation_concept_id,
     MIN(YEAR(o.observation_date)) AS observation_start_year
   FROM
-    {{ ref(  var("achilles_source_schema") + "__observation" ) }} AS o
+    {{ source("omop", "observation" ) }} AS o
   INNER JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       o.person_id = op.person_id
       AND

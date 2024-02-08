@@ -8,13 +8,13 @@ WITH rawData AS (
     FLOOR((YEAR(po.procedure_date) - p.year_of_birth) / 10) AS stratum_4,
     COUNT_BIG(DISTINCT p.person_id) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__person" ) }} AS p
+    {{ source("omop", "person" ) }} AS p
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__procedure_occurrence" ) }} AS po
+    {{ source("omop", "procedure_occurrence" ) }} AS po
     ON
       p.person_id = po.person_id
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       po.person_id = op.person_id
       AND

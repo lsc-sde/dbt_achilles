@@ -13,9 +13,9 @@ FROM (
     COALESCE(vd.visit_detail_concept_id, 0) AS visit_detail_concept_id,
     COUNT(*) AS record_count
   FROM
-    {{ ref(  var("achilles_source_schema") + "__drug_exposure" ) }} AS de
+    {{ source("omop", "drug_exposure" ) }} AS de
   LEFT JOIN
-    {{ ref(  var("achilles_source_schema") + "__visit_detail" ) }} AS vd
+    {{ source("omop", "visit_detail" ) }} AS vd
     ON
       de.visit_occurrence_id = vd.visit_occurrence_id
   GROUP BY
@@ -26,9 +26,9 @@ FROM (
     COALESCE(vd.visit_detail_concept_id, 0) AS visit_detail_concept_id,
     COUNT(*) AS record_count
   FROM
-    {{ ref(  var("achilles_source_schema") + "__condition_occurrence" ) }} AS co
+    {{ source("omop", "condition_occurrence" ) }} AS co
   LEFT JOIN
-    {{ ref(  var("achilles_source_schema") + "__visit_detail" ) }} AS vd
+    {{ source("omop", "visit_detail" ) }} AS vd
     ON
       co.visit_occurrence_id = vd.visit_occurrence_id
   GROUP BY
@@ -39,9 +39,9 @@ FROM (
     COALESCE(visit_detail_concept_id, 0) AS visit_detail_concept_id,
     COUNT(*) AS record_count
   FROM
-    {{ ref(  var("achilles_source_schema") + "__device_exposure" ) }} AS de
+    {{ source("omop", "device_exposure" ) }} AS de
   LEFT JOIN
-    {{ ref(  var("achilles_source_schema") + "__visit_detail" ) }} AS vd
+    {{ source("omop", "visit_detail" ) }} AS vd
     ON
       de.visit_occurrence_id = vd.visit_occurrence_id
   GROUP BY
@@ -52,9 +52,9 @@ FROM (
     COALESCE(vd.visit_detail_concept_id, 0) AS visit_detail_concept_id,
     COUNT(*) AS record_count
   FROM
-    {{ ref(  var("achilles_source_schema") + "__procedure_occurrence" ) }} AS po
+    {{ source("omop", "procedure_occurrence" ) }} AS po
   LEFT JOIN
-    {{ ref(  var("achilles_source_schema") + "__visit_detail" ) }} AS vd
+    {{ source("omop", "visit_detail" ) }} AS vd
     ON
       po.visit_occurrence_id = vd.visit_occurrence_id
   GROUP BY
@@ -65,9 +65,9 @@ FROM (
     COALESCE(vd.visit_detail_concept_id, 0) AS visit_detail_concept_id,
     COUNT(*) AS record_count
   FROM
-    {{ ref(  var("achilles_source_schema") + "__measurement" ) }} AS m
+    {{ source("omop", "measurement" ) }} AS m
   LEFT JOIN
-    {{ ref(  var("achilles_source_schema") + "__visit_detail" ) }} AS vd
+    {{ source("omop", "visit_detail" ) }} AS vd
     ON
       m.visit_occurrence_id = vd.visit_occurrence_id
   GROUP BY
@@ -78,9 +78,9 @@ FROM (
     COALESCE(vd.visit_detail_concept_id, 0) AS visit_detail_concept_id,
     COUNT(*) AS record_count
   FROM
-    {{ ref(  var("achilles_source_schema") + "__observation" ) }} AS o
+    {{ source("omop", "observation" ) }} AS o
   LEFT JOIN
-    {{ ref(  var("achilles_source_schema") + "__visit_detail" ) }} AS vd
+    {{ source("omop", "visit_detail" ) }} AS vd
     ON
       o.visit_occurrence_id = vd.visit_occurrence_id
   GROUP BY

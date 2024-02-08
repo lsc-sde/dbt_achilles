@@ -5,9 +5,9 @@ with rawData (person_id, count_value) as (
     co.person_id,
     COUNT_BIG(distinct co.condition_concept_id) as count_value
   from
-    {{ ref(  var("achilles_source_schema") + "__condition_occurrence" ) }} as co
+    {{ source("omop", "condition_occurrence" ) }} as co
     join
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} as op
+    {{ source("omop", "observation_period" ) }} as op
     on
       co.person_id = op.person_id
       and

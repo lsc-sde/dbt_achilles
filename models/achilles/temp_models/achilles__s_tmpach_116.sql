@@ -6,9 +6,9 @@ WITH rawData AS (
     floor((t1.obs_year - p1.year_of_birth) / 10) AS stratum_3,
     count_big(DISTINCT p1.PERSON_ID) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__person" ) }} AS p1
+    {{ source("omop", "person" ) }} AS p1
   INNER JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op1
+    {{ source("omop", "observation_period" ) }} AS op1
     ON p1.person_id = op1.person_id,
     {{ ref ("achilles__temp_dates_116") }} AS t1
   WHERE

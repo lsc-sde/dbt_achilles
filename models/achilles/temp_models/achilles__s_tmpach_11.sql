@@ -8,12 +8,12 @@ select
   cast(null as VARCHAR(255)) as stratum_4,
   cast(null as VARCHAR(255)) as stratum_5,
   COUNT_BIG(distinct P.person_id) as count_value
-from {{ ref(  var("achilles_source_schema") + "__person" ) }} as P
+from {{ source("omop", "person" ) }} as P
 where
   not exists
   (
     select 1
-    from {{ ref(  var("achilles_source_schema") + "__death" ) }} as D
+    from {{ source("omop", "death" ) }} as D
     where P.person_id = D.person_id
   )
 group by P.YEAR_OF_BIRTH, P.gender_concept_id

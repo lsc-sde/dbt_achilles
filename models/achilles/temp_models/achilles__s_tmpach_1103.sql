@@ -8,8 +8,8 @@ select
   cast(null as VARCHAR(255)) as stratum_4,
   cast(null as VARCHAR(255)) as stratum_5,
   COUNT_BIG(distinct care_site_id) as count_value
-from {{ ref(  var("achilles_source_schema") + "__care_site" ) }} as cs1
-inner join {{ ref(  var("achilles_source_schema") + "__location" ) }} as l1
+from {{ source("omop", "care_site" ) }} as cs1
+inner join {{ source("omop", "location" ) }} as l1
   on cs1.location_id = l1.location_id
 where
   cs1.location_id is not null

@@ -4,9 +4,9 @@ with rawData (gender_concept_id, age_value) as (
   select
     p.gender_concept_id,
     MIN(YEAR(observation_period_start_date)) - P.YEAR_OF_BIRTH as age_value
-  from {{ ref(  var("achilles_source_schema") + "__person" ) }} as p
+  from {{ source("omop", "person" ) }} as p
   inner join
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} as op
+    {{ source("omop", "observation_period" ) }} as op
     on p.person_id = op.person_id
   group by p.person_id, p.gender_concept_id, p.year_of_birth
 ),

@@ -16,4 +16,4 @@ select
   cast(null as FLOAT) as p75_value,
   cast(null as FLOAT) as p90_value,
   COUNT_BIG(distinct person_id) as count_value
-from {{ ref(  var("achilles_source_schema") + "__person" ) }}
+from {{ source("omop", "person" ) }}

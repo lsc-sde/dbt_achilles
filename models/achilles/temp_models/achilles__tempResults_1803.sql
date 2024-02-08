@@ -3,9 +3,9 @@
 with rawData (count_value) as (
   select COUNT_BIG(distinct m.measurement_concept_id) as count_value
   from
-    {{ ref(  var("achilles_source_schema") + "__measurement" ) }} as m
+    {{ source("omop", "measurement" ) }} as m
     join
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} as op
+    {{ source("omop", "observation_period" ) }} as op
     on
       m.person_id = op.person_id
       and

@@ -9,5 +9,5 @@ select
   cast(null as VARCHAR(255)) as stratum_5,
   COUNT_BIG(distinct m.PERSON_ID) as count_value
 from
-  {{ ref(  var("achilles_source_schema") + "__note" ) }} as m
+  {{ source("omop", "note" ) }} as m
 group by m.note_type_CONCEPT_ID

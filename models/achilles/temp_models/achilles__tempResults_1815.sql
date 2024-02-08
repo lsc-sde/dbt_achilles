@@ -67,9 +67,9 @@ inner join
           m.unit_concept_id,
           cast(m.value_as_number as FLOAT) as count_value
         from
-          {{ ref(  var("achilles_source_schema") + "__measurement" ) }} as m
+          {{ source("omop", "measurement" ) }} as m
         inner join
-          {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} as op
+          {{ source("omop", "observation_period" ) }} as op
           on
             m.person_id = op.person_id
             and

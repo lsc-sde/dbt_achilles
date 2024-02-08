@@ -7,9 +7,9 @@ WITH rawData AS (
     + MONTH(co.condition_start_date) AS stratum_2,
     COUNT_BIG(DISTINCT co.person_id) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__condition_occurrence" ) }} AS co
+    {{ source("omop", "condition_occurrence" ) }} AS co
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       co.person_id = op.person_id
       AND

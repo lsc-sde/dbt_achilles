@@ -7,9 +7,9 @@ WITH rawData AS (
     + MONTH(vd.visit_detail_start_date) AS stratum_2,
     COUNT_BIG(DISTINCT vd.person_id) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__visit_detail" ) }} AS vd
+    {{ source("omop", "visit_detail" ) }} AS vd
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       vd.person_id = op.person_id
       AND

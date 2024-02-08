@@ -12,9 +12,9 @@ from (
     'drug_exposure' as cdm_table,
     coalesce(visit_concept_id, 0) as visit_concept_id,
     count(*) as record_count
-  from {{ ref(  var("achilles_source_schema") + "__drug_exposure" ) }} as t
+  from {{ source("omop", "drug_exposure" ) }} as t
   left join
-    {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} as v
+    {{ source("omop", "visit_occurrence" ) }} as v
     on t.visit_occurrence_id = v.visit_occurrence_id
   group by visit_concept_id
   union
@@ -22,9 +22,9 @@ from (
     'condition_occurrence' as cdm_table,
     coalesce(visit_concept_id, 0) as visit_concept_id,
     count(*) as record_count
-  from {{ ref(  var("achilles_source_schema") + "__condition_occurrence" ) }} as t
+  from {{ source("omop", "condition_occurrence" ) }} as t
   left join
-    {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} as v
+    {{ source("omop", "visit_occurrence" ) }} as v
     on t.visit_occurrence_id = v.visit_occurrence_id
   group by visit_concept_id
   union
@@ -32,9 +32,9 @@ from (
     'device_exposure' as cdm_table,
     coalesce(visit_concept_id, 0) as visit_concept_id,
     count(*) as record_count
-  from {{ ref(  var("achilles_source_schema") + "__device_exposure" ) }} as t
+  from {{ source("omop", "device_exposure" ) }} as t
   left join
-    {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} as v
+    {{ source("omop", "visit_occurrence" ) }} as v
     on t.visit_occurrence_id = v.visit_occurrence_id
   group by visit_concept_id
   union
@@ -42,9 +42,9 @@ from (
     'procedure_occurrence' as cdm_table,
     coalesce(visit_concept_id, 0) as visit_concept_id,
     count(*) as record_count
-  from {{ ref(  var("achilles_source_schema") + "__procedure_occurrence" ) }} as t
+  from {{ source("omop", "procedure_occurrence" ) }} as t
   left join
-    {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} as v
+    {{ source("omop", "visit_occurrence" ) }} as v
     on t.visit_occurrence_id = v.visit_occurrence_id
   group by visit_concept_id
   union
@@ -52,9 +52,9 @@ from (
     'measurement' as cdm_table,
     coalesce(visit_concept_id, 0) as visit_concept_id,
     count(*) as record_count
-  from {{ ref(  var("achilles_source_schema") + "__measurement" ) }} as t
+  from {{ source("omop", "measurement" ) }} as t
   left join
-    {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} as v
+    {{ source("omop", "visit_occurrence" ) }} as v
     on t.visit_occurrence_id = v.visit_occurrence_id
   group by visit_concept_id
   union
@@ -62,9 +62,9 @@ from (
     'observation' as cdm_table,
     coalesce(visit_concept_id, 0) as visit_concept_id,
     count(*) as record_count
-  from {{ ref(  var("achilles_source_schema") + "__observation" ) }} as t
+  from {{ source("omop", "observation" ) }} as t
   left join
-    {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} as v
+    {{ source("omop", "visit_occurrence" ) }} as v
     on t.visit_occurrence_id = v.visit_occurrence_id
   group by visit_concept_id
 ) as v

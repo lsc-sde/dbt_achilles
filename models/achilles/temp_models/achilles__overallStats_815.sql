@@ -13,9 +13,9 @@ FROM (
     o.unit_concept_id,
     CAST(o.value_as_number AS FLOAT) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__observation" ) }} AS o
+    {{ source("omop", "observation" ) }} AS o
   INNER JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       o.person_id = op.person_id
       AND

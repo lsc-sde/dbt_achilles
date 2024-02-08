@@ -16,9 +16,9 @@ FROM (
     o.person_id,
     COUNT(o.observation_id) AS obs_cnt
   FROM
-    {{ ref(  var("achilles_source_schema") + "__observation" ) }} AS o
+    {{ source("omop", "observation" ) }} AS o
   INNER JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       o.person_id = op.person_id
       AND

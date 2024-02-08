@@ -7,9 +7,9 @@ WITH rawData (stratum_id, count_value) AS (
     DATEDIFF(DD, vd.visit_detail_start_date, vd.visit_detail_END_date)
       AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__visit_detail" ) }} AS vd
+    {{ source("omop", "visit_detail" ) }} AS vd
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       vd.person_id = op.person_id
       AND

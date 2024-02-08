@@ -16,9 +16,9 @@ FROM (
     d.person_id,
     COUNT(d.device_exposure_id) AS device_count
   FROM
-    {{ ref(  var("achilles_source_schema") + "__device_exposure" ) }} AS d
+    {{ source("omop", "device_exposure" ) }} AS d
   INNER JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       d.person_id = op.person_id
       AND

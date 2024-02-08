@@ -5,15 +5,15 @@ WITH rawData (stratum_id, count_value) AS (
     p.gender_concept_id AS stratum_id,
     d.death_year - p.year_of_birth AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__person" ) }} AS p
+    {{ source("omop", "person" ) }} AS p
     JOIN (
     SELECT
       d.person_id,
       MIN(YEAR(d.death_date)) AS death_year
     FROM
-      {{ ref(  var("achilles_source_schema") + "__death" ) }} AS d
+      {{ source("omop", "death" ) }} AS d
     INNER JOIN
-      {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+      {{ source("omop", "observation_period" ) }} AS op
       ON
         d.person_id = op.person_id
         AND

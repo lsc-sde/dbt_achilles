@@ -10,7 +10,7 @@ SELECT
   CAST(null AS VARCHAR(255)) AS stratum_5,
   COUNT_BIG(DISTINCT op1.PERSON_ID) AS count_value
 FROM
-  {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op1
+  {{ source("omop", "observation_period" ) }} AS op1
 INNER JOIN
   (
     SELECT DISTINCT
@@ -23,7 +23,7 @@ INNER JOIN
       )
         AS obs_month_start,
       EOMONTH(observation_period_start_date) AS obs_month_end
-    FROM {{ ref(  var("achilles_source_schema") + "__observation_period" ) }}
+    FROM {{ source("omop", "observation_period" ) }}
   ) AS t1
   ON
     op1.observation_period_start_date <= t1.obs_month_start

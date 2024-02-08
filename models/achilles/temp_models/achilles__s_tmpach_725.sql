@@ -9,9 +9,9 @@ SELECT
   CAST(NULL AS VARCHAR(255)) AS stratum_5,
   COUNT_BIG(*) AS count_value
 FROM
-  {{ ref(  var("achilles_source_schema") + "__drug_exposure" ) }} AS de
+  {{ source("omop", "drug_exposure" ) }} AS de
 INNER JOIN
-  {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+  {{ source("omop", "observation_period" ) }} AS op
   ON
     de.person_id = op.person_id
     AND

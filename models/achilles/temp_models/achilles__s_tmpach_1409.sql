@@ -8,9 +8,9 @@ select
   cast(null as VARCHAR(255)) as stratum_5,
   COUNT_BIG(distinct p1.PERSON_ID) as count_value
 from
-  {{ ref(  var("achilles_source_schema") + "__person" ) }} as p1
+  {{ source("omop", "person" ) }} as p1
 inner join
-  {{ ref(  var("achilles_source_schema") + "__payer_plan_period" ) }} as ppp1
+  {{ source("omop", "payer_plan_period" ) }} as ppp1
   on p1.person_id = ppp1.person_id
 ,
   {{ ref ("achilles__temp_dates_1409") }} as t1

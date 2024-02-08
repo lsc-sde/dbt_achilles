@@ -24,15 +24,15 @@ FROM (
     * (ROW_NUMBER() OVER (ORDER BY DATEDIFF(DD, d.death_date, co.max_date)))
     / (COUNT_BIG(*) OVER () + 1) AS p1
   FROM
-    {{ ref(  var("achilles_source_schema") + "__death" ) }} AS d
+    {{ source("omop", "death" ) }} AS d
     JOIN (
     SELECT
       co.person_id,
       MAX(co.condition_start_date) AS max_date
     FROM
-      {{ ref(  var("achilles_source_schema") + "__condition_occurrence" ) }} AS co
+      {{ source("omop", "condition_occurrence" ) }} AS co
     INNER JOIN
-      {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+      {{ source("omop", "observation_period" ) }} AS op
       ON
         co.person_id = op.person_id
         AND

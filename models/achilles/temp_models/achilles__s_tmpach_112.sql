@@ -6,7 +6,7 @@ WITH rawData AS (
     + MONTH(op1.observation_period_end_date) AS stratum_1,
     COUNT_BIG(DISTINCT op1.PERSON_ID) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op1
+    {{ source("omop", "observation_period" ) }} AS op1
   GROUP BY
     YEAR(op1.observation_period_end_date) * 100
     + MONTH(op1.observation_period_end_date)

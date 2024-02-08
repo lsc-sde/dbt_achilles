@@ -6,16 +6,16 @@ WITH rawData (stratum1_id, stratum2_id, count_value) AS (
     p.gender_concept_id AS stratum2_id,
     v.visit_start_year - p.year_of_birth AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__person" ) }} AS p
+    {{ source("omop", "person" ) }} AS p
     JOIN (
     SELECT
       vo.person_id,
       vo.visit_concept_id,
       MIN(YEAR(vo.visit_start_date)) AS visit_start_year
     FROM
-      {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} AS vo
+      {{ source("omop", "visit_occurrence" ) }} AS vo
     INNER JOIN
-      {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+      {{ source("omop", "observation_period" ) }} AS op
       ON
         vo.person_id = op.person_id
         AND

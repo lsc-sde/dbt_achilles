@@ -5,9 +5,9 @@ WITH rawData AS (
     YEAR(d.death_date) * 100 + MONTH(d.death_date) AS stratum_1,
     COUNT_BIG(DISTINCT d.person_id) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__death" ) }} AS d
+    {{ source("omop", "death" ) }} AS d
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       d.person_id = op.person_id
       AND

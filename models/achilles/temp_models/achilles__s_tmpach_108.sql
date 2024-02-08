@@ -9,7 +9,7 @@ WITH rawData AS (
       / 30
     ) AS stratum_1,
     count_big(DISTINCT p1.person_id) AS count_value
-  FROM {{ ref(  var("achilles_source_schema") + "__person" ) }} AS p1
+  FROM {{ source("omop", "person" ) }} AS p1
   INNER JOIN
     (
       SELECT
@@ -19,7 +19,7 @@ WITH rawData AS (
         ROW_NUMBER() OVER (
           PARTITION BY person_id ORDER BY observation_period_start_date ASC
         ) AS rn1
-      FROM {{ ref(  var("achilles_source_schema") + "__observation_period" ) }}
+      FROM {{ source("omop", "observation_period" ) }}
     ) AS op1
     ON p1.PERSON_ID = op1.PERSON_ID
   WHERE op1.rn1 = 1

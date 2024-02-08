@@ -14,7 +14,7 @@ SELECT
 FROM date_keys t1
 left join
   (select t2.obs_month, op2.*
-    from {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} op2, date_keys t2
+    from {{ source("omop", "observation_period" ) }} op2, date_keys t2
     where year(op2.observation_period_start_date)*100 + month(op2.observation_period_start_date) <= t2.obs_month
     and year(op2.observation_period_end_date)*100 + month(op2.observation_period_end_date) >= t2.obs_month
   ) op1 on op1.obs_month = t1.obs_month

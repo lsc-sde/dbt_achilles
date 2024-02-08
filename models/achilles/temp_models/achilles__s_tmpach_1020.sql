@@ -6,9 +6,9 @@ WITH rawData AS (
     + MONTH(ce.condition_era_start_date) AS stratum_1,
     COUNT_BIG(ce.person_id) AS count_value
   FROM
-    {{ ref(  var("achilles_source_schema") + "__condition_era" ) }} AS ce
+    {{ source("omop", "condition_era" ) }} AS ce
     JOIN
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} AS op
+    {{ source("omop", "observation_period" ) }} AS op
     ON
       ce.person_id = op.person_id
       AND

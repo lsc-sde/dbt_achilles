@@ -1,1 +1,1 @@
-select distinct person_id from {{ ref(  var("achilles_source_schema") + "__drug_exposure" ) }}
+select distinct person_id from {{ source("omop", "drug_exposure" ) }}

@@ -8,7 +8,7 @@ select
   cast(null as varchar(255)) as stratum_5,
   COUNT_BIG(o1.PERSON_ID) as count_value
 from
-  {{ ref(  var("achilles_source_schema") + "__observation" ) }} as o1
+  {{ source("omop", "observation" ) }} as o1
 where
   o1.value_as_number is null
   and o1.value_as_string is null

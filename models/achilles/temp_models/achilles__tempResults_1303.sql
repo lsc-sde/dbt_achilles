@@ -5,9 +5,9 @@ with rawData (person_id, count_value) as (
     vd.person_id,
     COUNT_BIG(distinct vd.visit_detail_concept_id) as count_value
   from
-    {{ ref(  var("achilles_source_schema") + "__visit_detail" ) }} as vd
+    {{ source("omop", "visit_detail" ) }} as vd
     join
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} as op
+    {{ source("omop", "observation_period" ) }} as op
     on
       vd.person_id = op.person_id
       and

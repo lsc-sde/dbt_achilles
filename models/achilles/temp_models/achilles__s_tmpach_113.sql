@@ -13,6 +13,6 @@ from
     select
       person_id,
       COUNT_BIG(OBSERVATION_period_start_date) as num_periods
-    from {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} group by PERSON_ID
+    from {{ source("omop", "observation_period" ) }} group by PERSON_ID
   ) as op1
 group by op1.num_periods

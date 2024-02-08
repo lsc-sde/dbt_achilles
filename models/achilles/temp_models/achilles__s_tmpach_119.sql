@@ -9,5 +9,5 @@ select
   cast(null as VARCHAR(255)) as stratum_5,
   COUNT_BIG(*) as count_value
 from
-  {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} as op1
+  {{ source("omop", "observation_period" ) }} as op1
 group by op1.period_type_concept_id

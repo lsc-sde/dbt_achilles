@@ -5,8 +5,8 @@ with rawData (stratum_id, count_value) as (
   select
     visit_concept_id as stratum_id,
     datediff(dd, visit_start_date, visit_end_date) as count_value
-  from {{ ref(  var("achilles_source_schema") + "__visit_occurrence" ) }} as vo inner join
-    {{ ref(  var("achilles_source_schema") + "__observation_period" ) }} as op
+  from {{ source("omop", "visit_occurrence" ) }} as vo inner join
+    {{ source("omop", "observation_period" ) }} as op
     on vo.person_id = op.person_id
   -- only include events that occur during observation period
   where
