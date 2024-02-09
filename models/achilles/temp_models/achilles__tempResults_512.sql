@@ -1,7 +1,7 @@
 -- 512	Distribution of time from death to last drug
 --HINT DISTRIBUTE_ON_KEY(count_value)
 WITH rawData (count_value) AS (
-  SELECT DATEDIFF(DD, d.death_date, de.max_date) AS count_value
+  SELECT datediff( de.max_date, d.death_date) AS count_value
   FROM
     {{ source("omop", "death" ) }} AS d
     JOIN (

@@ -4,7 +4,7 @@
 WITH rawData (stratum_id, count_value) AS (
   SELECT
     vd.visit_detail_concept_id AS stratum_id,
-    DATEDIFF(DD, vd.visit_detail_start_date, vd.visit_detail_END_date)
+    datediff( vd.visit_detail_end_date,vd.visit_detail_start_date)
       AS count_value
   FROM
     {{ source("omop", "visit_detail" ) }} AS vd

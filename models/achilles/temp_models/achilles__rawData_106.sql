@@ -7,8 +7,7 @@ from
   (
     select
       person_id,
-      DATEDIFF(
-        dd, op.observation_period_start_date, op.observation_period_end_date
+      datediff( op.observation_period_end_date,op.observation_period_start_date
       ) as count_value,
       ROW_NUMBER() over (
         partition by op.person_id order by op.observation_period_start_date asc

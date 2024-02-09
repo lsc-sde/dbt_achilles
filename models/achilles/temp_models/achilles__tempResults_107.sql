@@ -4,8 +4,7 @@ with rawData (age_decile, count_value) as (
   select
     floor((year(op.OBSERVATION_PERIOD_START_DATE) - p.YEAR_OF_BIRTH) / 10)
       as age_decile,
-    datediff(
-      dd, op.observation_period_start_date, op.observation_period_end_date
+    datediff( op.observation_period_end_date,op.observation_period_start_date
     ) as count_value
   from
     (

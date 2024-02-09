@@ -3,7 +3,7 @@
 with rawData (stratum1_id, count_value) as (
   select
     ce.condition_concept_id as stratum1_id,
-    DATEDIFF(DD, ce.condition_era_start_date, ce.condition_era_end_date)
+    datediff( ce.condition_era_end_date,ce.condition_era_start_date)
     as count_value
   from
     {{ source("omop", "condition_era" ) }} as ce

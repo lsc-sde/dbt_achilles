@@ -4,7 +4,7 @@
 with rawData (stratum_id, count_value) as (
   select
     visit_concept_id as stratum_id,
-    datediff(dd, visit_start_date, visit_end_date) as count_value
+    datediff( visit_end_date, visit_start_date) as count_value
   from {{ source("omop", "visit_occurrence" ) }} as vo inner join
     {{ source("omop", "observation_period" ) }} as op
     on vo.person_id = op.person_id

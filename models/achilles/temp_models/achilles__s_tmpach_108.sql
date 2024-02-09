@@ -3,8 +3,7 @@
 with rawData as (
   select
     floor(
-      datediff(
-        DD, op1.observation_period_start_date, op1.observation_period_end_date
+      datediff( op1.observation_period_end_date,op1.observation_period_start_date
       )
       / 30
     ) as stratum_1,
@@ -25,8 +24,7 @@ with rawData as (
   where op1.rn1 = 1
   group by
     floor(
-      datediff(
-        DD, op1.observation_period_start_date, op1.observation_period_end_date
+      datediff( op1.observation_period_end_date,op1.observation_period_start_date
       )
       / 30
     )

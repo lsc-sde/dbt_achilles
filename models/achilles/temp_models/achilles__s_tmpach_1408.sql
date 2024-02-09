@@ -4,8 +4,7 @@ select
   1408 as analysis_id,
   cast(
     floor(
-      datediff(
-        dd, ppp1.payer_plan_period_start_date, ppp1.payer_plan_period_end_date
+      datediff( ppp1.payer_plan_period_end_date,ppp1.payer_plan_period_start_date
       )
       / 30
     ) as VARCHAR(255)
@@ -32,8 +31,7 @@ where ppp1.rn1 = 1
 group by
   cast(
     floor(
-      datediff(
-        dd, ppp1.payer_plan_period_start_date, ppp1.payer_plan_period_end_date
+      datediff( ppp1.payer_plan_period_end_date,ppp1.payer_plan_period_start_date
       )
       / 30
     ) as VARCHAR(255)

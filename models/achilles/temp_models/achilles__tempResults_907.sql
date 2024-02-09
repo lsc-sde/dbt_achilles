@@ -3,7 +3,7 @@
 with rawData (stratum1_id, count_value) as (
   select
     de.drug_concept_id as stratum1_id,
-    DATEDIFF(DD, de.drug_era_start_date, de.drug_era_end_date) as count_value
+    datediff( de.drug_era_end_date,de.drug_era_start_date) as count_value
   from
     {{ source("omop", "drug_era" ) }} as de
   inner join

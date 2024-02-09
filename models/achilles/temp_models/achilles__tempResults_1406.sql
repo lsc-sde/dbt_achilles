@@ -3,8 +3,7 @@
 with rawData (stratum1_id, count_value) as (
   select
     p1.gender_concept_id as stratum1_id,
-    DATEDIFF(
-      dd, ppp1.payer_plan_period_start_date, ppp1.payer_plan_period_end_date
+    datediff( ppp1.payer_plan_period_end_date,ppp1.payer_plan_period_start_date
     ) as count_value
   from {{ source("omop", "person" ) }} as p1
   inner join

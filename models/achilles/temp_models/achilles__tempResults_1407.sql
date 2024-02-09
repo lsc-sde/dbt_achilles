@@ -4,8 +4,7 @@ with rawData (stratum_id, count_value) as (
   select
     floor((year(ppp1.payer_plan_period_START_DATE) - p1.YEAR_OF_BIRTH) / 10)
       as stratum_id,
-    datediff(
-      dd, ppp1.payer_plan_period_start_date, ppp1.payer_plan_period_end_date
+    datediff( ppp1.payer_plan_period_end_date,ppp1.payer_plan_period_start_date
     ) as count_value
   from {{ source("omop", "person" ) }} as p1
   inner join

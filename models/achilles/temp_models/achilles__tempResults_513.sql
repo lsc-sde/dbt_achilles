@@ -1,7 +1,7 @@
 -- 513	Distribution of time from death to last visit
 --HINT DISTRIBUTE_ON_KEY(count_value)
 WITH rawData (count_value) AS (
-  SELECT DATEDIFF(DD, d.death_date, vo.max_date) AS count_value
+  SELECT datediff( vo.max_date,d.death_date) AS count_value
   FROM
     {{ source("omop", "death" ) }} AS d
     JOIN (

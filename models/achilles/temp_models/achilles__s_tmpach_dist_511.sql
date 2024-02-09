@@ -19,9 +19,8 @@ SELECT
   MAX(CASE WHEN p1 <= 0.90 THEN count_value ELSE -9999 END) AS p90_value
 FROM (
   SELECT
-    DATEDIFF(DD, d.death_date, co.max_date) AS count_value,
-    1.0
-    * (ROW_NUMBER() OVER (ORDER BY DATEDIFF(DD, d.death_date, co.max_date)))
+    DATEDIFF(co.max_date, d.death_date) AS count_value,    1.0
+    * (ROW_NUMBER() OVER (ORDER BY  DATEDIFF( co.max_date,d.death_date)))
     / (count(*) OVER () + 1) AS p1
   FROM
     {{ source("omop", "death" ) }} AS d
