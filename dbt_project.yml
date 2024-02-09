@@ -10,6 +10,8 @@ profile: "dbt_achilles_databricks"
 
 vars:
   achilles_source_schema: "v1_bronze"
+  omop_source_schema: "dev_vc"
+  vocab_source_schema: "dev_vc"
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be

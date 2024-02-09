@@ -273,8 +273,8 @@
       ]
   %}
 
-  {% for model in achilles_temp_models %}
-    drop table if exists {{ ref(model) }}
-  {% endfor %}
+  {%- for model in achilles_temp_models %}
+    drop table if exists {{ ref(model) }};
+  {%- endfor %}
 
 {% endmacro %}
