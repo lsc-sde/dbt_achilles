@@ -1,90 +1,12 @@
 -- 117	Number of persons with at least one day of observation in each month
 --HINT DISTRIBUTE_ON_KEY(stratum_1)
--- generating date key sequences in a cross-dialect compatible fashion
-with century as (
-  select '19' as num
-  union
-  select '20' as num
+-- generating date key sequences in a databricks SQL compatible fashion
+-- this is very different from the dialect agnostic method used in the original implementation
+with months_array as (
+  select explode(sequence(DATE'1900-01-01', DATE'2099-12-01', INTERVAL 1 MONTH)) as months
 ),
-
-tens as (
-  select '0' as num
-  union
-  select '1' as num
-  union
-  select '2' as num
-  union
-  select '3' as num
-  union
-  select '4' as num
-  union
-  select '5' as num
-  union
-  select '6' as num
-  union
-  select '7' as num
-  union
-  select '8' as num
-  union
-  select '9' as num
-),
-
-ones as (
-  select '0' as num
-  union
-  select '1' as num
-  union
-  select '2' as num
-  union
-  select '3' as num
-  union
-  select '4' as num
-  union
-  select '5' as num
-  union
-  select '6' as num
-  union
-  select '7' as num
-  union
-  select '8' as num
-  union
-  select '9' as num
-),
-
-months as (
-  select '01' as num
-  union
-  select '02' as num
-  union
-  select '03' as num
-  union
-  select '04' as num
-  union
-  select '05' as num
-  union
-  select '06' as num
-  union
-  select '07' as num
-  union
-  select '08' as num
-  union
-  select '09' as num
-  union
-  select '10' as num
-  union
-  select '11' as num
-  union
-  select '12' as num
-),
-
 date_keys as (
-  select cast(
-    concat(century.num, tens.num, ones.num, months.num) as int
-  ) as obs_month
-  from century
-  cross join tens
-  cross join ones
-  cross join months
+  select date_format(months,'yyyyMM') as obs_month from months_array
 )
 
 select
