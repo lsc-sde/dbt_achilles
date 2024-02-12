@@ -49,3 +49,7 @@ models:
       schema: achilles
       +materialized: table
       +tags: achilles
+    dqd:
+      schema: dqd
+      +materialized: table
+      +tags: dqd

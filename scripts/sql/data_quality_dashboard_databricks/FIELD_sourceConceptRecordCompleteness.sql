@@ -38,22 +38,18 @@ FROM (
  SELECT 
  'CONDITION_OCCURRENCE.CONDITION_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
  WHERE cdmTable.CONDITION_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -90,22 +86,18 @@ FROM (
  SELECT 
  'DEATH.CAUSE_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DEATH cdmTable
+ FROM hive_metastore.dev_vc.DEATH cdmTable
  WHERE cdmTable.CAUSE_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEATH cdmTable
+ FROM hive_metastore.dev_vc.DEATH cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -142,22 +134,18 @@ FROM (
  SELECT 
  'DEVICE_EXPOSURE.DEVICE_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
  WHERE cdmTable.DEVICE_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -194,22 +182,18 @@ FROM (
  SELECT 
  'DEVICE_EXPOSURE.UNIT_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
  WHERE cdmTable.UNIT_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -246,22 +230,18 @@ FROM (
  SELECT 
  'DRUG_EXPOSURE.DRUG_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
  WHERE cdmTable.DRUG_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -298,22 +278,18 @@ FROM (
  SELECT 
  'EPISODE.EPISODE_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.EPISODE cdmTable
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
  WHERE cdmTable.EPISODE_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.EPISODE cdmTable
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -350,22 +326,18 @@ FROM (
  SELECT 
  'MEASUREMENT.MEASUREMENT_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
  WHERE cdmTable.MEASUREMENT_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -402,22 +374,18 @@ FROM (
  SELECT 
  'MEASUREMENT.UNIT_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
  WHERE cdmTable.UNIT_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -454,22 +422,18 @@ FROM (
  SELECT 
  'OBSERVATION.OBSERVATION_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
  WHERE cdmTable.OBSERVATION_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -506,22 +470,18 @@ FROM (
  SELECT 
  'PROCEDURE_OCCURRENCE.PROCEDURE_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
  WHERE cdmTable.PROCEDURE_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -558,22 +518,18 @@ FROM (
  SELECT 
  'PROVIDER.SPECIALTY_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.PROVIDER cdmTable
+ FROM hive_metastore.dev_vc.PROVIDER cdmTable
  WHERE cdmTable.SPECIALTY_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROVIDER cdmTable
+ FROM hive_metastore.dev_vc.PROVIDER cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -610,22 +566,18 @@ FROM (
  SELECT 
  'VISIT_DETAIL.VISIT_DETAIL_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
  WHERE cdmTable.VISIT_DETAIL_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'sourceConceptRecordCompleteness' as check_name
  ,'FIELD' as check_level
@@ -662,12 +614,12 @@ FROM (
  SELECT 
  'VISIT_OCCURRENCE.VISIT_SOURCE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
  WHERE cdmTable.VISIT_SOURCE_CONCEPT_ID = 0 
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
 ) denominator
 ) cte
 )

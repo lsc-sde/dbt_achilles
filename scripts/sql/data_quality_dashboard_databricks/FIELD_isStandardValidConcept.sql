@@ -39,8 +39,8 @@ FROM (
  SELECT 
  'CARE_SITE.PLACE_OF_SERVICE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.CARE_SITE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.CARE_SITE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.PLACE_OF_SERVICE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -48,17 +48,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CARE_SITE cdmTable
+ FROM hive_metastore.dev_vc.CARE_SITE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -96,8 +92,8 @@ FROM (
  SELECT 
  'CDM_SOURCE.CDM_VERSION_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.CDM_SOURCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.CDM_SOURCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.CDM_VERSION_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -105,17 +101,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CDM_SOURCE cdmTable
+ FROM hive_metastore.dev_vc.CDM_SOURCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -154,7 +146,7 @@ FROM (
  'COHORT_DEFINITION.DEFINITION_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
  FROM hive_metastore.dev_vc_achilles.COHORT_DEFINITION cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DEFINITION_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -164,15 +156,11 @@ FROM (
  COUNT(*) AS num_rows
  FROM hive_metastore.dev_vc_achilles.COHORT_DEFINITION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -211,7 +199,7 @@ FROM (
  'COHORT_DEFINITION.SUBJECT_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
  FROM hive_metastore.dev_vc_achilles.COHORT_DEFINITION cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.SUBJECT_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -221,15 +209,11 @@ FROM (
  COUNT(*) AS num_rows
  FROM hive_metastore.dev_vc_achilles.COHORT_DEFINITION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -267,8 +251,8 @@ FROM (
  SELECT 
  'CONDITION_ERA.CONDITION_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.CONDITION_ERA cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.CONDITION_ERA cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.CONDITION_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -276,17 +260,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_ERA cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -324,8 +304,8 @@ FROM (
  SELECT 
  'CONDITION_OCCURRENCE.CONDITION_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.CONDITION_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -333,17 +313,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -381,8 +357,8 @@ FROM (
  SELECT 
  'CONDITION_OCCURRENCE.CONDITION_STATUS_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.CONDITION_STATUS_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -390,17 +366,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -438,8 +410,8 @@ FROM (
  SELECT 
  'CONDITION_OCCURRENCE.CONDITION_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.CONDITION_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -447,17 +419,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -495,8 +463,8 @@ FROM (
  SELECT 
  'COST.COST_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.COST cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.COST cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.COST_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -504,17 +472,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.COST cdmTable
+ FROM hive_metastore.dev_vc.COST cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -552,8 +516,8 @@ FROM (
  SELECT 
  'DEATH.CAUSE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DEATH cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DEATH cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.CAUSE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -561,17 +525,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEATH cdmTable
+ FROM hive_metastore.dev_vc.DEATH cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -609,8 +569,8 @@ FROM (
  SELECT 
  'DEATH.DEATH_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DEATH cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DEATH cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DEATH_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -618,17 +578,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEATH cdmTable
+ FROM hive_metastore.dev_vc.DEATH cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -666,8 +622,8 @@ FROM (
  SELECT 
  'DEVICE_EXPOSURE.DEVICE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DEVICE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -675,17 +631,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -723,8 +675,8 @@ FROM (
  SELECT 
  'DEVICE_EXPOSURE.DEVICE_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DEVICE_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -732,17 +684,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -780,8 +728,8 @@ FROM (
  SELECT 
  'DEVICE_EXPOSURE.UNIT_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.UNIT_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -789,17 +737,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -837,8 +781,8 @@ FROM (
  SELECT 
  'DOSE_ERA.DRUG_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DOSE_ERA cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DOSE_ERA cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DRUG_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -846,17 +790,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DOSE_ERA cdmTable
+ FROM hive_metastore.dev_vc.DOSE_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -894,8 +834,8 @@ FROM (
  SELECT 
  'DOSE_ERA.UNIT_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DOSE_ERA cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DOSE_ERA cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.UNIT_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -903,17 +843,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DOSE_ERA cdmTable
+ FROM hive_metastore.dev_vc.DOSE_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -951,8 +887,8 @@ FROM (
  SELECT 
  'DRUG_ERA.DRUG_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DRUG_ERA cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DRUG_ERA cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DRUG_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -960,17 +896,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_ERA cdmTable
+ FROM hive_metastore.dev_vc.DRUG_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1008,8 +940,8 @@ FROM (
  SELECT 
  'DRUG_EXPOSURE.DRUG_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DRUG_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1017,17 +949,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1065,8 +993,8 @@ FROM (
  SELECT 
  'DRUG_EXPOSURE.DRUG_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DRUG_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1074,17 +1002,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1122,8 +1046,8 @@ FROM (
  SELECT 
  'DRUG_EXPOSURE.ROUTE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.ROUTE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1131,17 +1055,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1179,8 +1099,8 @@ FROM (
  SELECT 
  'EPISODE.EPISODE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.EPISODE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.EPISODE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1188,17 +1108,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.EPISODE cdmTable
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1236,8 +1152,8 @@ FROM (
  SELECT 
  'EPISODE.EPISODE_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.EPISODE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.EPISODE_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1245,17 +1161,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.EPISODE cdmTable
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1293,8 +1205,8 @@ FROM (
  SELECT 
  'EPISODE_EVENT.EPISODE_EVENT_FIELD_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.EPISODE_EVENT cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.EPISODE_EVENT cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.EPISODE_EVENT_FIELD_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1302,17 +1214,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.EPISODE_EVENT cdmTable
+ FROM hive_metastore.dev_vc.EPISODE_EVENT cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1350,8 +1258,8 @@ FROM (
  SELECT 
  'LOCATION.COUNTRY_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.LOCATION cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.LOCATION cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.COUNTRY_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1359,17 +1267,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.LOCATION cdmTable
+ FROM hive_metastore.dev_vc.LOCATION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1407,8 +1311,8 @@ FROM (
  SELECT 
  'MEASUREMENT.MEAS_EVENT_FIELD_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.MEAS_EVENT_FIELD_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1416,17 +1320,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1464,8 +1364,8 @@ FROM (
  SELECT 
  'MEASUREMENT.MEASUREMENT_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.MEASUREMENT_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1473,17 +1373,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1521,8 +1417,8 @@ FROM (
  SELECT 
  'MEASUREMENT.MEASUREMENT_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.MEASUREMENT_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1530,17 +1426,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1578,8 +1470,8 @@ FROM (
  SELECT 
  'MEASUREMENT.OPERATOR_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.OPERATOR_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1587,17 +1479,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1635,8 +1523,8 @@ FROM (
  SELECT 
  'MEASUREMENT.UNIT_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.UNIT_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1644,17 +1532,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1692,8 +1576,8 @@ FROM (
  SELECT 
  'NOTE.ENCODING_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.NOTE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.NOTE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.ENCODING_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1701,17 +1585,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.NOTE cdmTable
+ FROM hive_metastore.dev_vc.NOTE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1749,8 +1629,8 @@ FROM (
  SELECT 
  'NOTE.LANGUAGE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.NOTE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.NOTE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.LANGUAGE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1758,17 +1638,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.NOTE cdmTable
+ FROM hive_metastore.dev_vc.NOTE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1806,8 +1682,8 @@ FROM (
  SELECT 
  'NOTE.NOTE_CLASS_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.NOTE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.NOTE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.NOTE_CLASS_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1815,17 +1691,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.NOTE cdmTable
+ FROM hive_metastore.dev_vc.NOTE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1863,8 +1735,8 @@ FROM (
  SELECT 
  'NOTE.NOTE_EVENT_FIELD_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.NOTE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.NOTE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.NOTE_EVENT_FIELD_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1872,17 +1744,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.NOTE cdmTable
+ FROM hive_metastore.dev_vc.NOTE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1920,8 +1788,8 @@ FROM (
  SELECT 
  'NOTE.NOTE_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.NOTE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.NOTE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.NOTE_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1929,17 +1797,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.NOTE cdmTable
+ FROM hive_metastore.dev_vc.NOTE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -1977,8 +1841,8 @@ FROM (
  SELECT 
  'NOTE_NLP.NOTE_NLP_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.NOTE_NLP cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.NOTE_NLP cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.NOTE_NLP_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -1986,17 +1850,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.NOTE_NLP cdmTable
+ FROM hive_metastore.dev_vc.NOTE_NLP cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2034,8 +1894,8 @@ FROM (
  SELECT 
  'NOTE_NLP.SECTION_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.NOTE_NLP cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.NOTE_NLP cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.SECTION_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2043,17 +1903,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.NOTE_NLP cdmTable
+ FROM hive_metastore.dev_vc.NOTE_NLP cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2091,8 +1947,8 @@ FROM (
  SELECT 
  'OBSERVATION.OBS_EVENT_FIELD_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.OBS_EVENT_FIELD_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2100,17 +1956,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2148,8 +2000,8 @@ FROM (
  SELECT 
  'OBSERVATION.OBSERVATION_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.OBSERVATION_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2157,17 +2009,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2205,8 +2053,8 @@ FROM (
  SELECT 
  'OBSERVATION.OBSERVATION_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.OBSERVATION_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2214,17 +2062,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2262,8 +2106,8 @@ FROM (
  SELECT 
  'OBSERVATION.QUALIFIER_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.QUALIFIER_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2271,17 +2115,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2319,8 +2159,8 @@ FROM (
  SELECT 
  'OBSERVATION.UNIT_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.UNIT_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2328,17 +2168,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2376,8 +2212,8 @@ FROM (
  SELECT 
  'OBSERVATION_PERIOD.PERIOD_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.OBSERVATION_PERIOD cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.OBSERVATION_PERIOD cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.PERIOD_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2385,17 +2221,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION_PERIOD cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION_PERIOD cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2433,8 +2265,8 @@ FROM (
  SELECT 
  'PERSON.ETHNICITY_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.PERSON cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.PERSON cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.ETHNICITY_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2442,17 +2274,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PERSON cdmTable
+ FROM hive_metastore.dev_vc.PERSON cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2490,8 +2318,8 @@ FROM (
  SELECT 
  'PERSON.GENDER_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.PERSON cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.PERSON cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.GENDER_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2499,17 +2327,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PERSON cdmTable
+ FROM hive_metastore.dev_vc.PERSON cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2547,8 +2371,8 @@ FROM (
  SELECT 
  'PERSON.RACE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.PERSON cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.PERSON cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.RACE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2556,17 +2380,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PERSON cdmTable
+ FROM hive_metastore.dev_vc.PERSON cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2604,8 +2424,8 @@ FROM (
  SELECT 
  'PROCEDURE_OCCURRENCE.MODIFIER_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.MODIFIER_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2613,17 +2433,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2661,8 +2477,8 @@ FROM (
  SELECT 
  'PROCEDURE_OCCURRENCE.PROCEDURE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.PROCEDURE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2670,17 +2486,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2718,8 +2530,8 @@ FROM (
  SELECT 
  'PROCEDURE_OCCURRENCE.PROCEDURE_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.PROCEDURE_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2727,17 +2539,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2775,8 +2583,8 @@ FROM (
  SELECT 
  'PROVIDER.GENDER_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.PROVIDER cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.PROVIDER cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.GENDER_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2784,17 +2592,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROVIDER cdmTable
+ FROM hive_metastore.dev_vc.PROVIDER cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2832,8 +2636,8 @@ FROM (
  SELECT 
  'PROVIDER.SPECIALTY_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.PROVIDER cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.PROVIDER cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.SPECIALTY_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2841,7 +2645,7 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROVIDER cdmTable
+ FROM hive_metastore.dev_vc.PROVIDER cdmTable
 ) denominator
 ) cte
 )
@@ -2889,8 +2693,8 @@ FROM (
  SELECT 
  'SOURCE_TO_CONCEPT_MAP.TARGET_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.SOURCE_TO_CONCEPT_MAP cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.SOURCE_TO_CONCEPT_MAP cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.TARGET_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2898,17 +2702,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.SOURCE_TO_CONCEPT_MAP cdmTable
+ FROM hive_metastore.dev_vc.SOURCE_TO_CONCEPT_MAP cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -2946,8 +2746,8 @@ FROM (
  SELECT 
  'SPECIMEN.ANATOMIC_SITE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.ANATOMIC_SITE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -2955,17 +2755,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3003,8 +2799,8 @@ FROM (
  SELECT 
  'SPECIMEN.DISEASE_STATUS_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DISEASE_STATUS_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3012,17 +2808,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3060,8 +2852,8 @@ FROM (
  SELECT 
  'SPECIMEN.SPECIMEN_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.SPECIMEN_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3069,17 +2861,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3117,8 +2905,8 @@ FROM (
  SELECT 
  'SPECIMEN.SPECIMEN_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.SPECIMEN_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3126,17 +2914,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3174,8 +2958,8 @@ FROM (
  SELECT 
  'SPECIMEN.UNIT_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.UNIT_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3183,17 +2967,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3231,8 +3011,8 @@ FROM (
  SELECT 
  'VISIT_DETAIL.ADMITTED_FROM_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.ADMITTED_FROM_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3240,17 +3020,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3288,8 +3064,8 @@ FROM (
  SELECT 
  'VISIT_DETAIL.DISCHARGED_TO_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DISCHARGED_TO_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3297,17 +3073,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3345,8 +3117,8 @@ FROM (
  SELECT 
  'VISIT_DETAIL.VISIT_DETAIL_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.VISIT_DETAIL_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3354,17 +3126,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3402,8 +3170,8 @@ FROM (
  SELECT 
  'VISIT_DETAIL.VISIT_DETAIL_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.VISIT_DETAIL_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3411,17 +3179,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3459,8 +3223,8 @@ FROM (
  SELECT 
  'VISIT_OCCURRENCE.ADMITTED_FROM_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.ADMITTED_FROM_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3468,17 +3232,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3516,8 +3276,8 @@ FROM (
  SELECT 
  'VISIT_OCCURRENCE.DISCHARGED_TO_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.DISCHARGED_TO_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3525,17 +3285,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3573,8 +3329,8 @@ FROM (
  SELECT 
  'VISIT_OCCURRENCE.VISIT_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.VISIT_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3582,17 +3338,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'isStandardValidConcept' as check_name
  ,'FIELD' as check_level
@@ -3630,8 +3382,8 @@ FROM (
  SELECT 
  'VISIT_OCCURRENCE.VISIT_TYPE_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.concept co 
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.concept co 
  ON cdmTable.VISIT_TYPE_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.standard_concept != 'S' OR co.invalid_reason IS NOT NULL)
@@ -3639,7 +3391,7 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
 ) denominator
 ) cte
 )

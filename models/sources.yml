@@ -22,6 +22,7 @@ sources:
     - name: drug_era
     - name: drug_exposure
     - name: drug_strength
+    - name: episode
     - name: episode_event
     - name: fact_relationship
     - name: location
@@ -40,3 +41,10 @@ sources:
     - name: visit_detail
     - name: visit_occurrence
     - name: vocabulary
+
+- name: cdm_results
+  catalog: hive_metastore
+  schema: dev_vc_achilles
+  tables:
+    - name: cohort
+    - name: cohort_definition

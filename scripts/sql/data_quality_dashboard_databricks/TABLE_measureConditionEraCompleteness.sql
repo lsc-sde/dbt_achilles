@@ -37,14 +37,14 @@ FROM (
  (
  SELECT DISTINCT 
  co.person_id
- FROM hive_metastore.omop_source.condition_occurrence co
- LEFT JOIN hive_metastore.omop_source.CONDITION_ERA cdmTable 
+ FROM hive_metastore.dev_vc.condition_occurrence co
+ LEFT JOIN hive_metastore.dev_vc.CONDITION_ERA cdmTable 
  ON co.person_id = cdmTable.person_id
  WHERE cdmTable.person_id IS NULL
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(DISTINCT person_id) AS num_rows
- FROM hive_metastore.omop_source.condition_occurrence co
+ FROM hive_metastore.dev_vc.condition_occurrence co
 ) denominator
 ) cte
 )

@@ -39,7 +39,7 @@ FROM (
  SELECT 
  'CDM_SOURCE.CDM_RELEASE_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.CDM_SOURCE cdmTable
+ FROM hive_metastore.dev_vc.CDM_SOURCE cdmTable
  WHERE 
  CAST(cdmTable.SOURCE_RELEASE_DATE AS DATE)
  > CAST(cdmTable.CDM_RELEASE_DATE AS DATE)
@@ -47,17 +47,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CDM_SOURCE cdmTable
+ FROM hive_metastore.dev_vc.CDM_SOURCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -95,7 +91,7 @@ FROM (
  SELECT 
  'CONDITION_ERA.CONDITION_ERA_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.CONDITION_ERA cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_ERA cdmTable
  WHERE 
  CAST(cdmTable.CONDITION_ERA_START_DATE AS DATE)
  > CAST(cdmTable.CONDITION_ERA_END_DATE AS DATE)
@@ -103,17 +99,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_ERA cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -151,8 +143,8 @@ FROM (
  SELECT 
  'CONDITION_ERA.CONDITION_ERA_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.CONDITION_ERA cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.CONDITION_ERA cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -163,17 +155,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_ERA cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -211,7 +199,7 @@ FROM (
  SELECT 
  'CONDITION_OCCURRENCE.CONDITION_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
  WHERE 
  CAST(cdmTable.CONDITION_START_DATE AS DATE)
  > CAST(cdmTable.CONDITION_END_DATE AS DATE)
@@ -219,17 +207,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -267,7 +251,7 @@ FROM (
  SELECT 
  'CONDITION_OCCURRENCE.CONDITION_END_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
  WHERE 
  CAST(cdmTable.CONDITION_START_DATETIME AS DATE)
  > CAST(cdmTable.CONDITION_END_DATETIME AS DATE)
@@ -275,17 +259,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -323,8 +303,8 @@ FROM (
  SELECT 
  'CONDITION_OCCURRENCE.CONDITION_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -335,17 +315,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -383,8 +359,8 @@ FROM (
  SELECT 
  'CONDITION_OCCURRENCE.CONDITION_START_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -395,17 +371,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -443,8 +415,8 @@ FROM (
  SELECT 
  'DEATH.DEATH_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DEATH cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.DEATH cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -455,17 +427,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEATH cdmTable
+ FROM hive_metastore.dev_vc.DEATH cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -503,8 +471,8 @@ FROM (
  SELECT 
  'DEATH.DEATH_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DEATH cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.DEATH cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -515,17 +483,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEATH cdmTable
+ FROM hive_metastore.dev_vc.DEATH cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -563,7 +527,7 @@ FROM (
  SELECT 
  'DEVICE_EXPOSURE.DEVICE_EXPOSURE_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
  WHERE 
  CAST(cdmTable.DEVICE_EXPOSURE_START_DATE AS DATE)
  > CAST(cdmTable.DEVICE_EXPOSURE_END_DATE AS DATE)
@@ -571,17 +535,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -619,7 +579,7 @@ FROM (
  SELECT 
  'DEVICE_EXPOSURE.DEVICE_EXPOSURE_END_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
  WHERE 
  CAST(cdmTable.DEVICE_EXPOSURE_START_DATETIME AS DATE)
  > CAST(cdmTable.DEVICE_EXPOSURE_END_DATETIME AS DATE)
@@ -627,17 +587,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -675,8 +631,8 @@ FROM (
  SELECT 
  'DEVICE_EXPOSURE.DEVICE_EXPOSURE_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -687,17 +643,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -735,8 +687,8 @@ FROM (
  SELECT 
  'DEVICE_EXPOSURE.DEVICE_EXPOSURE_START_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -747,17 +699,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -795,8 +743,8 @@ FROM (
  SELECT 
  'DOSE_ERA.DOSE_ERA_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DOSE_ERA cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.DOSE_ERA cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -807,17 +755,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DOSE_ERA cdmTable
+ FROM hive_metastore.dev_vc.DOSE_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -855,8 +799,8 @@ FROM (
  SELECT 
  'DOSE_ERA.DOSE_ERA_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DOSE_ERA cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.DOSE_ERA cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -867,17 +811,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DOSE_ERA cdmTable
+ FROM hive_metastore.dev_vc.DOSE_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -915,7 +855,7 @@ FROM (
  SELECT 
  'DRUG_ERA.DRUG_ERA_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DRUG_ERA cdmTable
+ FROM hive_metastore.dev_vc.DRUG_ERA cdmTable
  WHERE 
  CAST(cdmTable.DRUG_ERA_START_DATE AS DATE)
  > CAST(cdmTable.DRUG_ERA_END_DATE AS DATE)
@@ -923,17 +863,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_ERA cdmTable
+ FROM hive_metastore.dev_vc.DRUG_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -971,8 +907,8 @@ FROM (
  SELECT 
  'DRUG_ERA.DRUG_ERA_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DRUG_ERA cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.DRUG_ERA cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -983,17 +919,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_ERA cdmTable
+ FROM hive_metastore.dev_vc.DRUG_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1031,7 +963,7 @@ FROM (
  SELECT 
  'DRUG_EXPOSURE.DRUG_EXPOSURE_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
  WHERE 
  CAST(cdmTable.DRUG_EXPOSURE_START_DATE AS DATE)
  > CAST(cdmTable.DRUG_EXPOSURE_END_DATE AS DATE)
@@ -1039,17 +971,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1087,7 +1015,7 @@ FROM (
  SELECT 
  'DRUG_EXPOSURE.DRUG_EXPOSURE_END_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
  WHERE 
  CAST(cdmTable.DRUG_EXPOSURE_START_DATETIME AS DATE)
  > CAST(cdmTable.DRUG_EXPOSURE_END_DATETIME AS DATE)
@@ -1095,17 +1023,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1143,8 +1067,8 @@ FROM (
  SELECT 
  'DRUG_EXPOSURE.DRUG_EXPOSURE_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -1155,17 +1079,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1203,8 +1123,8 @@ FROM (
  SELECT 
  'DRUG_EXPOSURE.DRUG_EXPOSURE_START_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -1215,17 +1135,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1263,7 +1179,7 @@ FROM (
  SELECT 
  'DRUG_EXPOSURE.VERBATIM_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
  WHERE 
  CAST(cdmTable.DRUG_EXPOSURE_START_DATE AS DATE)
  > CAST(cdmTable.VERBATIM_END_DATE AS DATE)
@@ -1271,17 +1187,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1319,7 +1231,7 @@ FROM (
  SELECT 
  'DRUG_STRENGTH.VALID_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DRUG_STRENGTH cdmTable
+ FROM hive_metastore.dev_vc.DRUG_STRENGTH cdmTable
  WHERE 
  CAST(cdmTable.VALID_START_DATE AS DATE)
  > CAST(cdmTable.VALID_END_DATE AS DATE)
@@ -1327,17 +1239,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_STRENGTH cdmTable
+ FROM hive_metastore.dev_vc.DRUG_STRENGTH cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1375,7 +1283,7 @@ FROM (
  SELECT 
  'EPISODE.EPISODE_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.EPISODE cdmTable
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
  WHERE 
  CAST(cdmTable.EPISODE_START_DATE AS DATE)
  > CAST(cdmTable.EPISODE_END_DATE AS DATE)
@@ -1383,17 +1291,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.EPISODE cdmTable
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1431,7 +1335,7 @@ FROM (
  SELECT 
  'EPISODE.EPISODE_END_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.EPISODE cdmTable
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
  WHERE 
  CAST(cdmTable.EPISODE_START_DATETIME AS DATE)
  > CAST(cdmTable.EPISODE_END_DATETIME AS DATE)
@@ -1439,17 +1343,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.EPISODE cdmTable
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1487,8 +1387,8 @@ FROM (
  SELECT 
  'EPISODE.EPISODE_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.EPISODE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -1499,17 +1399,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.EPISODE cdmTable
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1547,8 +1443,8 @@ FROM (
  SELECT 
  'EPISODE.EPISODE_START_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.EPISODE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -1559,17 +1455,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.EPISODE cdmTable
+ FROM hive_metastore.dev_vc.EPISODE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1607,8 +1499,8 @@ FROM (
  SELECT 
  'MEASUREMENT.MEASUREMENT_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -1619,17 +1511,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1667,8 +1555,8 @@ FROM (
  SELECT 
  'NOTE.NOTE_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.NOTE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.NOTE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -1679,17 +1567,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.NOTE cdmTable
+ FROM hive_metastore.dev_vc.NOTE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1727,8 +1611,8 @@ FROM (
  SELECT 
  'NOTE.NOTE_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.NOTE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.NOTE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -1739,17 +1623,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.NOTE cdmTable
+ FROM hive_metastore.dev_vc.NOTE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1787,8 +1667,8 @@ FROM (
  SELECT 
  'OBSERVATION.OBSERVATION_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -1799,17 +1679,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1847,8 +1723,8 @@ FROM (
  SELECT 
  'OBSERVATION.OBSERVATION_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -1859,17 +1735,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1907,7 +1779,7 @@ FROM (
  SELECT 
  'OBSERVATION_PERIOD.OBSERVATION_PERIOD_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.OBSERVATION_PERIOD cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION_PERIOD cdmTable
  WHERE 
  CAST(cdmTable.OBSERVATION_PERIOD_START_DATE AS DATE)
  > CAST(cdmTable.OBSERVATION_PERIOD_END_DATE AS DATE)
@@ -1915,17 +1787,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION_PERIOD cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION_PERIOD cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -1963,8 +1831,8 @@ FROM (
  SELECT 
  'OBSERVATION_PERIOD.OBSERVATION_PERIOD_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.OBSERVATION_PERIOD cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.OBSERVATION_PERIOD cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -1975,17 +1843,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION_PERIOD cdmTable
+ FROM hive_metastore.dev_vc.OBSERVATION_PERIOD cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2023,7 +1887,7 @@ FROM (
  SELECT 
  'PAYER_PLAN_PERIOD.PAYER_PLAN_PERIOD_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.PAYER_PLAN_PERIOD cdmTable
+ FROM hive_metastore.dev_vc.PAYER_PLAN_PERIOD cdmTable
  WHERE 
  CAST(cdmTable.PAYER_PLAN_PERIOD_START_DATE AS DATE)
  > CAST(cdmTable.PAYER_PLAN_PERIOD_END_DATE AS DATE)
@@ -2031,17 +1895,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PAYER_PLAN_PERIOD cdmTable
+ FROM hive_metastore.dev_vc.PAYER_PLAN_PERIOD cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2079,8 +1939,8 @@ FROM (
  SELECT 
  'PAYER_PLAN_PERIOD.PAYER_PLAN_PERIOD_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.PAYER_PLAN_PERIOD cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.PAYER_PLAN_PERIOD cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -2091,17 +1951,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PAYER_PLAN_PERIOD cdmTable
+ FROM hive_metastore.dev_vc.PAYER_PLAN_PERIOD cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2139,8 +1995,8 @@ FROM (
  SELECT 
  'PROCEDURE_OCCURRENCE.PROCEDURE_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -2151,17 +2007,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2199,8 +2051,8 @@ FROM (
  SELECT 
  'PROCEDURE_OCCURRENCE.PROCEDURE_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -2211,17 +2063,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2259,7 +2107,7 @@ FROM (
  SELECT 
  'PROCEDURE_OCCURRENCE.PROCEDURE_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
  WHERE 
  CAST(cdmTable.PROCEDURE_DATE AS DATE)
  > CAST(cdmTable.PROCEDURE_END_DATE AS DATE)
@@ -2267,17 +2115,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2315,7 +2159,7 @@ FROM (
  SELECT 
  'PROCEDURE_OCCURRENCE.PROCEDURE_END_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
  WHERE 
  CAST(cdmTable.PROCEDURE_DATETIME AS DATE)
  > CAST(cdmTable.PROCEDURE_END_DATETIME AS DATE)
@@ -2323,17 +2167,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2371,7 +2211,7 @@ FROM (
  SELECT 
  'SOURCE_TO_CONCEPT_MAP.VALID_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.SOURCE_TO_CONCEPT_MAP cdmTable
+ FROM hive_metastore.dev_vc.SOURCE_TO_CONCEPT_MAP cdmTable
  WHERE 
  CAST(cdmTable.VALID_START_DATE AS DATE)
  > CAST(cdmTable.VALID_END_DATE AS DATE)
@@ -2379,17 +2219,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.SOURCE_TO_CONCEPT_MAP cdmTable
+ FROM hive_metastore.dev_vc.SOURCE_TO_CONCEPT_MAP cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2427,8 +2263,8 @@ FROM (
  SELECT 
  'SPECIMEN.SPECIMEN_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -2439,17 +2275,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2487,8 +2319,8 @@ FROM (
  SELECT 
  'SPECIMEN.SPECIMEN_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -2499,17 +2331,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.SPECIMEN cdmTable
+ FROM hive_metastore.dev_vc.SPECIMEN cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2547,7 +2375,7 @@ FROM (
  SELECT 
  'VISIT_DETAIL.VISIT_DETAIL_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
  WHERE 
  CAST(cdmTable.VISIT_DETAIL_START_DATE AS DATE)
  > CAST(cdmTable.VISIT_DETAIL_END_DATE AS DATE)
@@ -2555,17 +2383,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2603,7 +2427,7 @@ FROM (
  SELECT 
  'VISIT_DETAIL.VISIT_DETAIL_END_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
  WHERE 
  CAST(cdmTable.VISIT_DETAIL_START_DATETIME AS DATE)
  > CAST(cdmTable.VISIT_DETAIL_END_DATETIME AS DATE)
@@ -2611,17 +2435,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2659,8 +2479,8 @@ FROM (
  SELECT 
  'VISIT_DETAIL.VISIT_DETAIL_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -2671,17 +2491,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2719,8 +2535,8 @@ FROM (
  SELECT 
  'VISIT_DETAIL.VISIT_DETAIL_START_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -2731,17 +2547,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2779,7 +2591,7 @@ FROM (
  SELECT 
  'VISIT_OCCURRENCE.VISIT_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
  WHERE 
  CAST(cdmTable.VISIT_START_DATE AS DATE)
  > CAST(cdmTable.VISIT_END_DATE AS DATE)
@@ -2787,17 +2599,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2835,7 +2643,7 @@ FROM (
  SELECT 
  'VISIT_OCCURRENCE.VISIT_END_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
  WHERE 
  CAST(cdmTable.VISIT_START_DATETIME AS DATE)
  > CAST(cdmTable.VISIT_END_DATETIME AS DATE)
@@ -2843,17 +2651,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'plausibleTemporalAfter' as check_name
  ,'FIELD' as check_level
@@ -2891,8 +2695,8 @@ FROM (
  SELECT 
  'VISIT_OCCURRENCE.VISIT_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -2903,7 +2707,7 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
 ) denominator
 ) cte
 )
@@ -2951,8 +2755,8 @@ FROM (
  SELECT 
  'VISIT_OCCURRENCE.VISIT_START_DATETIME' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.PERSON plausibleTable ON cdmTable.person_id = plausibleTable.person_id
  WHERE 
  COALESCE(
  CAST(plausibleTable.BIRTH_DATETIME AS DATE),
@@ -2963,7 +2767,7 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable
+ FROM hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable
 ) denominator
 ) cte
 )

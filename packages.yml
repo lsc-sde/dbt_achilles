@@ -9,3 +9,7 @@ packages:
 #   version: 0.9.0
 - package: calogica/dbt_expectations
   version: 0.10.1
+# https://www.databricks.com/blog/2022/12/15/best-practices-super-powering-your-dbt-project-databricks.html
+# https://github.com/brooklyn-data/dbt_artifacts
+- package: brooklyn-data/dbt_artifacts
+  version: 2.6.2

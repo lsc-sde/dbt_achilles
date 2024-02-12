@@ -38,8 +38,8 @@ FROM (
  SELECT 
  'DOSE_ERA.DRUG_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DOSE_ERA cdmTable
- LEFT JOIN hive_metastore.omop_source.concept co
+ FROM hive_metastore.dev_vc.DOSE_ERA cdmTable
+ LEFT JOIN hive_metastore.dev_vc.concept co
  ON cdmTable.DRUG_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.concept_class_id != 'Ingredient') 
@@ -47,17 +47,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DOSE_ERA cdmTable
+ FROM hive_metastore.dev_vc.DOSE_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'fkClass' as check_name
  ,'FIELD' as check_level
@@ -94,8 +90,8 @@ FROM (
  SELECT 
  'DRUG_ERA.DRUG_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DRUG_ERA cdmTable
- LEFT JOIN hive_metastore.omop_source.concept co
+ FROM hive_metastore.dev_vc.DRUG_ERA cdmTable
+ LEFT JOIN hive_metastore.dev_vc.concept co
  ON cdmTable.DRUG_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.concept_class_id != 'Ingredient') 
@@ -103,17 +99,13 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_ERA cdmTable
+ FROM hive_metastore.dev_vc.DRUG_ERA cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'fkClass' as check_name
  ,'FIELD' as check_level
@@ -150,8 +142,8 @@ FROM (
  SELECT 
  'DRUG_STRENGTH.INGREDIENT_CONCEPT_ID' AS violating_field, 
  cdmTable.* 
- FROM hive_metastore.omop_source.DRUG_STRENGTH cdmTable
- LEFT JOIN hive_metastore.omop_source.concept co
+ FROM hive_metastore.dev_vc.DRUG_STRENGTH cdmTable
+ LEFT JOIN hive_metastore.dev_vc.concept co
  ON cdmTable.INGREDIENT_CONCEPT_ID = co.concept_id
  WHERE co.concept_id != 0 
  AND (co.concept_class_id != 'Ingredient') 
@@ -159,7 +151,7 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_STRENGTH cdmTable
+ FROM hive_metastore.dev_vc.DRUG_STRENGTH cdmTable
 ) denominator
 ) cte
 )

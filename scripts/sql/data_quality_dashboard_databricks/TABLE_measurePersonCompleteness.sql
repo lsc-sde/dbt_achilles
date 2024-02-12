@@ -38,25 +38,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.OBSERVATION_PERIOD cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.OBSERVATION_PERIOD cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -93,25 +89,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.VISIT_OCCURRENCE cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.VISIT_OCCURRENCE cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -148,25 +140,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.VISIT_DETAIL cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.VISIT_DETAIL cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -203,25 +191,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -258,25 +242,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.DRUG_EXPOSURE cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -313,25 +293,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -368,25 +344,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -423,25 +395,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.MEASUREMENT cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.MEASUREMENT cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -478,25 +446,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.OBSERVATION cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.OBSERVATION cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -533,25 +497,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.DEATH cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.DEATH cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -588,25 +548,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.NOTE cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.NOTE cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -643,25 +599,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.SPECIMEN cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.SPECIMEN cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -698,25 +650,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.PAYER_PLAN_PERIOD cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.PAYER_PLAN_PERIOD cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -753,25 +701,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.DRUG_ERA cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.DRUG_ERA cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -808,25 +752,21 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.DOSE_ERA cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.DOSE_ERA cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'measurePersonCompleteness' as check_name
  ,'TABLE' as check_level
@@ -863,15 +803,15 @@ FROM (
  /*violatedRowsBegin*/
  SELECT 
  cdmTable.* 
- FROM hive_metastore.omop_source.person cdmTable
- LEFT JOIN hive_metastore.omop_source.CONDITION_ERA cdmTable2 
+ FROM hive_metastore.dev_vc.person cdmTable
+ LEFT JOIN hive_metastore.dev_vc.CONDITION_ERA cdmTable2 
  ON cdmTable.person_id = cdmTable2.person_id
  WHERE cdmTable2.person_id IS NULL
  /*violatedRowsEnd*/
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.person cdmTable
+ FROM hive_metastore.dev_vc.person cdmTable
 ) denominator
 ) cte
 )

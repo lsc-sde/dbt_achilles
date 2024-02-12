@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS hive_metastore.dev_vc_achilles.dqdashboard_results

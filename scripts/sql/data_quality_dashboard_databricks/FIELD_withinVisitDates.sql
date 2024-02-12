@@ -38,8 +38,8 @@ FROM (
  SELECT 
  'CONDITION_OCCURRENCE.CONDITION_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
  WHERE cdmTable.CONDITION_START_DATE < date_add(vo.visit_start_date, -7)
  OR cdmTable.CONDITION_START_DATE > date_add(vo.visit_end_date, 7)
@@ -47,19 +47,15 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.CONDITION_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.CONDITION_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'withinVisitDates' as check_name
  ,'FIELD' as check_level
@@ -96,8 +92,8 @@ FROM (
  SELECT 
  'DEVICE_EXPOSURE.DEVICE_EXPOSURE_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
  WHERE cdmTable.DEVICE_EXPOSURE_START_DATE < date_add(vo.visit_start_date, -7)
  OR cdmTable.DEVICE_EXPOSURE_START_DATE > date_add(vo.visit_end_date, 7)
@@ -105,19 +101,15 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DEVICE_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.DEVICE_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'withinVisitDates' as check_name
  ,'FIELD' as check_level
@@ -154,8 +146,8 @@ FROM (
  SELECT 
  'DRUG_EXPOSURE.DRUG_EXPOSURE_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
  WHERE cdmTable.DRUG_EXPOSURE_START_DATE < date_add(vo.visit_start_date, -7)
  OR cdmTable.DRUG_EXPOSURE_START_DATE > date_add(vo.visit_end_date, 7)
@@ -163,19 +155,15 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.DRUG_EXPOSURE cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.DRUG_EXPOSURE cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'withinVisitDates' as check_name
  ,'FIELD' as check_level
@@ -212,8 +200,8 @@ FROM (
  SELECT 
  'MEASUREMENT.MEASUREMENT_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
  WHERE cdmTable.MEASUREMENT_DATE < date_add(vo.visit_start_date, -7)
  OR cdmTable.MEASUREMENT_DATE > date_add(vo.visit_end_date, 7)
@@ -221,19 +209,15 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.MEASUREMENT cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.MEASUREMENT cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'withinVisitDates' as check_name
  ,'FIELD' as check_level
@@ -270,8 +254,8 @@ FROM (
  SELECT 
  'NOTE.NOTE_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.NOTE cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.NOTE cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
  WHERE cdmTable.NOTE_DATE < date_add(vo.visit_start_date, -7)
  OR cdmTable.NOTE_DATE > date_add(vo.visit_end_date, 7)
@@ -279,19 +263,15 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.NOTE cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.NOTE cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'withinVisitDates' as check_name
  ,'FIELD' as check_level
@@ -328,8 +308,8 @@ FROM (
  SELECT 
  'OBSERVATION.OBSERVATION_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
  WHERE cdmTable.OBSERVATION_DATE < date_add(vo.visit_start_date, -7)
  OR cdmTable.OBSERVATION_DATE > date_add(vo.visit_end_date, 7)
@@ -337,19 +317,15 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.OBSERVATION cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.OBSERVATION cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'withinVisitDates' as check_name
  ,'FIELD' as check_level
@@ -386,8 +362,8 @@ FROM (
  SELECT 
  'PROCEDURE_OCCURRENCE.PROCEDURE_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
  WHERE cdmTable.PROCEDURE_DATE < date_add(vo.visit_start_date, -7)
  OR cdmTable.PROCEDURE_DATE > date_add(vo.visit_end_date, 7)
@@ -395,19 +371,15 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.PROCEDURE_OCCURRENCE cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.PROCEDURE_OCCURRENCE cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'withinVisitDates' as check_name
  ,'FIELD' as check_level
@@ -444,8 +416,8 @@ FROM (
  SELECT 
  'VISIT_DETAIL.VISIT_DETAIL_END_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
  WHERE cdmTable.VISIT_DETAIL_END_DATE < date_add(vo.visit_start_date, -7)
  OR cdmTable.VISIT_DETAIL_END_DATE > date_add(vo.visit_end_date, 7)
@@ -453,19 +425,15 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
 ) denominator
-) cte
-)
-INSERT INTO hive_metastore.dev_vc_achilles.dqdashboard_results
-SELECT *
-FROM cte_all;
-WITH cte_all  AS (SELECT cte.num_violated_rows
+) cte UNION ALL SELECT 
+ cte.num_violated_rows
  ,cte.pct_violated_rows
  ,cte.num_denominator_rows
- , CAST('' as STRING) as execution_time
+ ,'' as execution_time
  ,'' as query_text
  ,'withinVisitDates' as check_name
  ,'FIELD' as check_level
@@ -502,8 +470,8 @@ FROM (
  SELECT 
  'VISIT_DETAIL.VISIT_DETAIL_START_DATE' AS violating_field, 
  cdmTable.*
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
  WHERE cdmTable.VISIT_DETAIL_START_DATE < date_add(vo.visit_start_date, -7)
  OR cdmTable.VISIT_DETAIL_START_DATE > date_add(vo.visit_end_date, 7)
@@ -511,8 +479,8 @@ FROM (
  ) violated_rows
 ) violated_row_count cross join (SELECT 
  COUNT(*) AS num_rows
- FROM hive_metastore.omop_source.VISIT_DETAIL cdmTable
- JOIN hive_metastore.omop_source.visit_occurrence vo
+ FROM hive_metastore.dev_vc.VISIT_DETAIL cdmTable
+ JOIN hive_metastore.dev_vc.visit_occurrence vo
  ON cdmTable.visit_occurrence_id = vo.visit_occurrence_id
 ) denominator
 ) cte
