@@ -2,16 +2,13 @@
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
 name: "dbt_achilles"
-version: "0.0.1"
+version: "0.1.0"
 config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
 profile: "dbt_achilles_databricks"
 
-vars:
-  achilles_source_schema: "v1_bronze"
-  omop_source_schema: "dev_vc"
-  vocab_source_schema: "dev_vc"
+vars: {}
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -32,14 +29,10 @@ clean-targets: # directories to be removed by `dbt clean`
 # https://github.com/dbt-msft/tsql-utils
 dispatch:
   - macro_namespace: dbt_utils
-    search_order: ["tsql_utils", "dbt_utils"]
+    search_order: ["spark_utils", "dbt_utils"]
   - macro_namespace: dbt_date
-    search_order: ["tsql_utils", "dbt_date"]
-  - macro_namespace: dbt_expectations
-    search_order: ["tsql_utils", "dbt_expectations"]
-  - macro_namespace: audit_helper
-    search_order: ["tsql_utils", "audit_helper"]
-
+    search_order: ["spark_utils", "dbt_date"]
+  
 tests:
   +store_failures: true
 
@@ -49,3 +42,5 @@ models:
       schema: achilles
       +materialized: table
       +tags: achilles
+      temp_models:
+        schema: temp

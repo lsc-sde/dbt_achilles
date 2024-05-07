@@ -3,8 +3,7 @@
     materialized = 'view',
     description = 'Model to clean up after running achilles',
     post_hook = [
-    "{{ drop_achilles_temp_models() }}",
-    "drop view {{ this.include(database=false)  }}"
+    "{{ drop_achilles_temp_models() }}"
     ]
     )
 }}

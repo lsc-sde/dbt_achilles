@@ -2,7 +2,7 @@ version: 2
 sources:
 - name: omop
   catalog: hive_metastore
-  schema: dev_vc
+  schema: lth_omop
   tables:
     - name: care_site
     - name: cohort
